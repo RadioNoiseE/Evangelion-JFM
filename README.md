@@ -1,2 +1,4 @@
 # Evangelion-JFM
-Advanced JFM for to use with LuaTeX-ja (based on min10,
+Advanced JFM for to use with LuaTeX-ja.
+Based on min10, ujisv, etc
+`WIP`: Work in progress.
