@@ -1,5 +1,4 @@
 local lang_jp, lang_tc, lang_sc, dir_vt, font_extd, punc_lg
-local stretch_width = 0.25
 
 -- 初始化
 if luatexja.jfont.jfm_feature
@@ -28,7 +27,7 @@ if not ((lang_jp and not (lang_tc or lang_sc))
     or  (lang_tc and not (lang_jp or lang_sc))
     or  (lang_sc and not (lang_jp or lang_tc)))
 then tex.error('Specify one and only one feature from three language specific features' ..
-               '"lang_jp", "lang_tc" or "lang_sc"' ..
+               '"jp", "trad" or "smpl"' ..
                'is required.' ..
                'For now I\'ll use "lang_jp" for japanese by default.')
      lang_jp = true
@@ -44,11 +43,11 @@ local function logic_if(f1, r1, r2)
 end
 
 local function context_height()
-    return dir_vt and (font_extd and 0.65 or 0.5) or 0.88
+    return dir_vt and (font_extd and 0.625 or 0.5) or 0.88
 end
 
 local function context_depth()
-    return dir_vt and (font_extd and 0.65 or 0.5) or 0.12
+    return dir_vt and (font_extd and 0.625 or 0.5) or 0.12
 end
 
 -- 主體
@@ -69,11 +68,9 @@ luatexja.jfont.define.jfm {
         depth = context_depth(),
         italic = 0,
         glue = {
-            [1] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {-1, -1}, kanjiskip_stretch = 1}, {}),
-            [2] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {0, -2}, kanjiskip_stretch = 1}, {}),
-            [3] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {-1, -1}, kanjiskip_stretch = 1}, {})),
-            [4] = {0, stretch_width, 0, priority = {-3, 0}, kanjiskip_stretch = 0},
-            [5] = {0, stretch_width, 0, priority = {-2, 0}, kanjiskip_stretch = 0},
+            [1] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {-1, -1}}, {}),
+            [2] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {0, -2}}, {}),
+            [3] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {-1, -1}}, {})),
             [6] = {},
             [7] = {},
             [8] = {},
@@ -92,12 +89,12 @@ luatexja.jfont.define.jfm {
         depth = context_depth(),
         italic = 0,
         glue = {
-            [0] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, priority = {-1, -1}, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0, priority = {-1, 0}, kanjiskip_stretch = 0}),
-            [1] = logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0, 0, 0, kanjiskip_natural = 0.5}),
-            [2] = logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0, 0, 0, kanjiskip_natural = 0.5}),
-            [3] = logic_if(dir_vt, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5}), logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0})),
-            [4] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, priority = {-1, -1}, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0, priority = {-1, 0}, kanjiskip_stretch = 0}),
-            [5] = {},
+            [0] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, priority = {-1, -1}}, {0.5, 0, 0.5, ratio = 0, priority = {-1, 0}}),
+            [1] = logic_if(lang_tc, {0.5, 0, 0.5}, {0, 0, 0.5, kanjiskip_natural = 0.5}),
+            [2] = logic_if(lang_tc, {0.5, 0, 0.5}, {0, 0, 0.5, kanjiskip_natural = 0.5}),
+            [3] = logic_if(dir_vt, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0}, {0.5, 0, 0.5}), logic_if(lang_tc, {0.5, 0, 0.5}, {0.5, 0, 0.5, ratio = 0})),
+            [4] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, priority = {-1, -1}}, {0.5, 0, 0.5, ratio = 0, priority = {-1, 0}}),
+            [5] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, priority = {0, 0}}, {0.5, 0, 0.5, ratio = 0, priority = {0, 0}}),
             [6] = {},
             [7] = {},
             [8] = {},
@@ -138,12 +135,12 @@ luatexja.jfont.define.jfm {
         depth = context_depth(),
         italic = 0,
         glue = {
-            [0] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, priority = {-1, 0}, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0, priority = {-1, 1}, kanjiskip_stretch = 0}),
-            [1] = logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0, 0, 0, kanjiskip_natural = 0.5}),
-            [2] = logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0, 0, 0, kanjiskip_natural = 0.5}),
-            [3] = logic_if(dir_vt, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5}), logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0})),
-            [4] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, priority = {-1, 0}, kanjiskil_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0, priority = {-1, 1}, kanjiskip_stretch = 0}),
-            [5] = {},
+            [0] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, priority = {-1, 0}}, {0.5, 0, 0.5, ratio = 0, priority = {-1, 1}}),
+            [1] = logic_if(lang_tc, {0.5, 0, 0.5}, {0, 0, 0.5, kanjiskip_natural = 0.5}),
+            [2] = logic_if(lang_tc, {0.5, 0, 0.5}, {0, 0, 0.5, kanjiskip_natural = 0.5}),
+            [3] = logic_if(dir_vt, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0}, {0.5, 0, 0.5}), logic_if(lang_tc, {0.5, 0, 0.5}, {0.5, 0, 0.5, ratio = 0})),
+            [4] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, priority = {-1, 0}}, {0.5, 0, 0.5, ratio = 0, priority = {-1, 1}}),
+            [5] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, priority = {0, 0}}, {0.5, 0, 0.5, ratio = 0, priority = {0, 0}}),
             [6] = {},
             [7] = {},
             [8] = {},
@@ -184,12 +181,12 @@ luatexja.jfont.define.jfm {
         depth = context_depth(),
         italic = 0,
         glue = {
-            [0] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, priority = {-1, -1}, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0, priority = {-1, -2}})),
-            [1] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0})),
-            [2] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0})),
-            [3] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0})),
-            [4] = {},
-            [5] = {},
+            [0] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, priority = {-1, -1}}, {0.5, 0, 0.5, ratio = 0, priority = {-1, -2}})),
+            [1] = logic_if(dir_vt, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {0, 0}}, {}), logic_if(lang_tc, {0.5, 0, 0.5}, {0.5, 0, 0.5, ratio = 0})),
+            [2] = logic_if(dir_vt, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {0, 0}}, {}), logic_if(lang_tc, {0.5, 0, 0.5}, {0.5, 0, 0.5, ratio = 0})),
+            [3] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.5, 0, 0.5}, {0.5, 0, 0.5, ratio = 0})),
+            [4] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0}, {0.5, 0, 0.5, ratio = 0})),
+            [5] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0}, {0.5, 0, 0.5, ratio = 0})),
             [6] = {},
             [7] = {},
             [8] = {},
@@ -198,7 +195,7 @@ luatexja.jfont.define.jfm {
     },
 
     [301] = { -- 兩點類（行間a）
-        chars = logic_and(dir_vt, punc_lg, {'：'}, {}),
+        chars = logic_if(lang_jp, {}, logic_and(dir_vt, punc_lg, {'：'}, {})),
         align = 'left',
         left = logic_if(lang_tc, 0.94, 0.72),
         down = logic_if(lang_tc, -0.58, -0.34),
@@ -209,7 +206,7 @@ luatexja.jfont.define.jfm {
     },
 
     [302] = { -- 兩點類（行間b）
-        chars = logic_and(dir_vt, punc_lg, {'；'}, {}),
+        chars = logic_if(lang_jp, {}, logic_and(dir_vt, punc_lg, {'；'}, {})),
         align = 'left',
         left = logic_if(lang_tc, 0.96, 0.78),
         down = logic_if(lang_tc, -0.58, -0.34),
@@ -233,12 +230,9 @@ luatexja.jfont.define.jfm {
         height = context_height(),
         depth = context_depth(),
         glue = {
-            [0] = {0, stretch_width, 0, priority = {-2, 0}},
-            [1] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {-1, -1}, kanjiskip_stretch = 1}, {0, 0, 0, priority = {-3, 0}, kanjiskip_natural = 0}),
-            [2] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {-1, 0}, kanjiskip_stretch = 1}, {0, 0, 0, priority = {-3, 0}, kanjiskip_natural = 0}),
-            [3] = logic_if(dir_vt, {0, 0, 0, kanjiskip_natural = 0}, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {-1, -1}, kanjiskip_stretch = 1}, {0, 0, 0, priority = {-3, 0}, kanjiskip_natural = 0})),
-            [4] = {0, stretch_width, 0, priority = {-3, 0}, kanjiskip_stretch = 0},
-            [5] = {},
+            [1] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {-1, -1}}, {}),
+            [2] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {-1, 0}}, {}),
+            [3] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {-1, -1}}, {}),
             [6] = {},
             [7] = {},
             [8] = {},
@@ -255,18 +249,39 @@ luatexja.jfont.define.jfm {
         height = context_height(),
         depth = context_depth(),
         glue = {
-            [0] = logic_if(lang_jp, logic_if(dir_vt, {1, stretch_width, 0.5, ratio = 0, priority = {-1, 0}}, {0.5, stretch_width, 0.25, ratio = 0, priority = {-1, 0}}), {0, 0, 0, priority = {-1, 0}}, kanjiskip_stretch = 1),
-            [1] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, kanjiskip_stretch = 1}, {0, stretch_width, 0}),
-            [2] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, kanjiskip_stretch = 1}, {0, stretch_width, 0}),
-            [3] = logic_if(dir_vt, {0, 0, 0, ratio = 1, kanjiskip_stretch = 1}, logic_if(lang_tc, {0.25, stretch_width, 0.25, ratio = 1}, {0, 0, 0, ratio = 1, kanjiskip_stretch = 1})),
-            [4] = logic_if(lang_jp, logic_if(dir_vt, {1, stretch_width, 0.5, ratio = 0, priority = {-1, 0}}, {0.5, stretch_width, 0.25, ratio = 0, priority = {-1, 0}}), {0, 0, 0, ratio = 0, priority = {-1, 0}, kanjiskip_stretch = 1}),
-            [5] = {0, stretch_width, 0, kanjiskip_stretch = 0},
+            [0] = logic_if(lang_jp, logic_if(dir_vt, {1, 0, 0.5, ratio = 0, priority = {-1, 0}}, {0.5, 0, 0.25, ratio = 0, priority = {-1, 0}}), {}),
+            [1] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1}, {}),
+            [2] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1}, {}),
+            [3] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1}, {})),
+            [4] = logic_if(lang_jp, logic_if(dir_vt, {1, 0, 0.5, ratio = 0, priority = {-1, 0}}, {0.5, 0, 0.25, ratio = 0, priority = {-1, 0}}), {}),
             [6] = {},
             [7] = {},
             [8] = {},
             [9] = {}
         }
     },
+
+    [6] = { -- 分離禁止類
+        chars = {'—', '―', '‥', '…', '⋯', '〳', '〴', '〵'},
+        align = 'middle',
+        left = 0,
+        down = 0,
+        width = 1,
+        height = context_height(),
+        depth = context_depth(),
+        italic = 0,
+        glue = {
+            [1] = logic_if(lang_tc, {0.25, 0, 0,25, ratio = 1, priority = {0, 0}}, {}),
+            [2] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {0, 0}}, {}),
+            [3] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {0, 0}}, {})),
+        },
+        kern = {
+            [6] = 0
+        }
+    },
+
+    [7] = { -- 開闊號類
+    }
 }    
 
     
