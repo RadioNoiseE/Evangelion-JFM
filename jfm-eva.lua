@@ -4,8 +4,8 @@ local stretch_width = 0.25
 -- 初始化
 if luatexja.jfont.jfm_feature
 then lang_jp = luatexja.jfont.jfm_feature.jp
-     lang_tc = luatexja.jfont.jfm_feature.tc
-     lang_sc = luatexja.jfont.jfm_feature.sc
+     lang_tc = luatexja.jfont.jfm_feature.trad
+     lang_sc = luatexja.jfont.jfm_feature.smpl
      dir_vt = luatexja.jfont.jfm_feature.vert
      font_extd = luatexja.jfont.jfm_feature.extd
      punc_lg = luatexja.jfont.jfm_feature.lgp
@@ -72,12 +72,12 @@ luatexja.jfont.define.jfm {
             [1] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {-1, -1}, kanjiskip_stretch = 1}, {}),
             [2] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {0, -2}, kanjiskip_stretch = 1}, {}),
             [3] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {-1, -1}, kanjiskip_stretch = 1}, {})),
-            [4] =
-            [5] =
-            [6] =
-            [7] =
-            [8] =
-            [9] =
+            [4] = {0, stretch_width, 0, priority = {-3, 0}, kanjiskip_stretch = 0},
+            [5] = {0, stretch_width, 0, priority = {-2, 0}, kanjiskip_stretch = 0},
+            [6] = {},
+            [7] = {},
+            [8] = {},
+            [9] = {}
         },
         round_threshold = 0.01
     },
@@ -92,16 +92,16 @@ luatexja.jfont.define.jfm {
         depth = context_depth(),
         italic = 0,
         glue = {
-            [0] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, priority = {-1, -1}, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0, priority = {-1, -2}, kanjiskip_natural = 0}),
-            [1] = logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0, 0, 0, kanjiskip_natural = 1}),
-            [2] = logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0, 0, 0, kanjiskip_natural = 1}),
+            [0] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, priority = {-1, -1}, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0, priority = {-1, 0}, kanjiskip_stretch = 0}),
+            [1] = logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0, 0, 0, kanjiskip_natural = 0.5}),
+            [2] = logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0, 0, 0, kanjiskip_natural = 0.5}),
             [3] = logic_if(dir_vt, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5}), logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0})),
-            [4] =
-            [5] =
-            [6] =
-            [7] =
-            [8] =
-            [9] =
+            [4] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, priority = {-1, -1}, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0, priority = {-1, 0}, kanjiskip_stretch = 0}),
+            [5] = {},
+            [6] = {},
+            [7] = {},
+            [8] = {},
+            [9] = {}
         },
         end_adjust = logic_if(lang_tc, {0, 0}, {0.5, 0})
     },
@@ -138,16 +138,16 @@ luatexja.jfont.define.jfm {
         depth = context_depth(),
         italic = 0,
         glue = {
-            [0] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, priority = {-1, 0}, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0, priority = {-1, -1}, kanjiskip_natural = 0}),
-            [1] = logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0, 0, 0, kanjiskip_natural = 1}),
-            [2] = logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0, 0, 0, kanjiskip_natural = 1}),
+            [0] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, priority = {-1, 0}, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0, priority = {-1, 1}, kanjiskip_stretch = 0}),
+            [1] = logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0, 0, 0, kanjiskip_natural = 0.5}),
+            [2] = logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0, 0, 0, kanjiskip_natural = 0.5}),
             [3] = logic_if(dir_vt, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5}), logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0})),
-            [4] =
-            [5] =
-            [6] =
-            [7] =
-            [8] =
-            [9] =
+            [4] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 0, priority = {-1, 0}, kanjiskil_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0, priority = {-1, 1}, kanjiskip_stretch = 0}),
+            [5] = {},
+            [6] = {},
+            [7] = {},
+            [8] = {},
+            [9] = {}
         },
         end_adjust = logic_if(lang_tc, {0, 0}, {0.5, 0})
     },
@@ -188,12 +188,12 @@ luatexja.jfont.define.jfm {
             [1] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0})),
             [2] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0})),
             [3] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.5, 0, 0.5, kanjiskip_stretch = 1}, {0.5, stretch_width, 0.5, ratio = 0})),
-            [4] =
-            [5] =
-            [6] =
-            [7] =
-            [8] =
-            [9] =
+            [4] = {},
+            [5] = {},
+            [6] = {},
+            [7] = {},
+            [8] = {},
+            [9] = {}
         }
     },
 
@@ -234,15 +234,15 @@ luatexja.jfont.define.jfm {
         depth = context_depth(),
         glue = {
             [0] = {0, stretch_width, 0, priority = {-2, 0}},
-            [1] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {-1, -1}, kanjiskip_stretch = 1}, {0, 0, 0, kanjiskip_natural = 0}),
-            [2] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {-1, 0}, kanjiskip_stretch = 1}, {0, 0, 0, kanjiskip_natural = 0}),
-            [3] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {-1, -1}, kanjiskip_stretch = 1}, {0, 0, 0, kanjiskip_natural = 0}),
-            [4] = {0, stretch_width, 0, priority = {-3, 0}, kanjiskip_natural = 0},
-            [5] =
-            [6] =
-            [7] =
-            [8] =
-            [9] =
+            [1] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {-1, -1}, kanjiskip_stretch = 1}, {0, 0, 0, priority = {-3, 0}, kanjiskip_natural = 0}),
+            [2] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {-1, 0}, kanjiskip_stretch = 1}, {0, 0, 0, priority = {-3, 0}, kanjiskip_natural = 0}),
+            [3] = logic_if(dir_vt, {0, 0, 0, kanjiskip_natural = 0}, logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, priority = {-1, -1}, kanjiskip_stretch = 1}, {0, 0, 0, priority = {-3, 0}, kanjiskip_natural = 0})),
+            [4] = {0, stretch_width, 0, priority = {-3, 0}, kanjiskip_stretch = 0},
+            [5] = {},
+            [6] = {},
+            [7] = {},
+            [8] = {},
+            [9] = {}
         }
     },
 
@@ -255,16 +255,16 @@ luatexja.jfont.define.jfm {
         height = context_height(),
         depth = context_depth(),
         glue = {
-            [0] = logic_if(lang_jp, logic_if(dir_vt, {1, stretch_width, 0.5, ratio = 0, priority = {-1, 0}}, {0.5, stretch_width, 0.25, ratio = 0, priority = {-1, 0}}), {0, stretch_width, 0, ratio = 0, priority = {-1, 0}}),
-            [1] =
-            [2] =
-            [3] =
-            [4] =
-            [5] =
-            [6] =
-            [7] =
-            [8] =
-            [9] =
+            [0] = logic_if(lang_jp, logic_if(dir_vt, {1, stretch_width, 0.5, ratio = 0, priority = {-1, 0}}, {0.5, stretch_width, 0.25, ratio = 0, priority = {-1, 0}}), {0, 0, 0, priority = {-1, 0}}, kanjiskip_stretch = 1),
+            [1] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, kanjiskip_stretch = 1}, {0, stretch_width, 0}),
+            [2] = logic_if(lang_tc, {0.25, 0, 0.25, ratio = 1, kanjiskip_stretch = 1}, {0, stretch_width, 0}),
+            [3] = logic_if(dir_vt, {0, 0, 0, ratio = 1, kanjiskip_stretch = 1}, logic_if(lang_tc, {0.25, stretch_width, 0.25, ratio = 1}, {0, 0, 0, ratio = 1, kanjiskip_stretch = 1})),
+            [4] = logic_if(lang_jp, logic_if(dir_vt, {1, stretch_width, 0.5, ratio = 0, priority = {-1, 0}}, {0.5, stretch_width, 0.25, ratio = 0, priority = {-1, 0}}), {0, 0, 0, ratio = 0, priority = {-1, 0}, kanjiskip_stretch = 1}),
+            [5] = {0, stretch_width, 0, kanjiskip_stretch = 0},
+            [6] = {},
+            [7] = {},
+            [8] = {},
+            [9] = {}
         }
     },
 }    
