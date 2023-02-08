@@ -1,6 +1,8 @@
-local lang_jp, lang_tc, lang_sc, dir_vt, font_extd, punc_lg
+-- -*- coding: utf-8 -*-
 
 -- 初始化
+local lang_jp, lang_tc, lang_sc, dir_vt, font_extd, punc_lg
+
 if luatexja.jfont.jfm_feature
 then lang_jp = luatexja.jfont.jfm_feature.jp
      lang_tc = luatexja.jfont.jfm_feature.trad
@@ -12,47 +14,48 @@ then lang_jp = luatexja.jfont.jfm_feature.jp
 end
 
 -- 預處理及容錯
-if font_extd and not dir_vt
-then tex.error('JFM feature "extd" only works with feature "vert".' ..
+if font_extd == true and dir_vt == false
+then tex.error('JFM feature "extd" only works with feature "vert".\n' ..
                'For now I\'ll ignore it.')
-     font_extd = false           
 end
 
-if punc_lg and not dir_vt
-then tex.error('JFM feature "lgp" only works with feature "vert".' ..
+if punc_lg == true and dir_vt == false
+then tex.error('JFM feature "lgp" only works with feature "vert".\n' ..
                'For now I\'ll ignore it.')
-     punc_lg = false
 end
 
 if not ((lang_jp and not (lang_tc or lang_sc))
     or  (lang_tc and not (lang_jp or lang_sc))
     or  (lang_sc and not (lang_jp or lang_tc)))
-then tex.error('Specify one and only one feature from three language specific features' ..
-               '"jp", "trad" or "smpl"' ..
-               'is required.' ..
+then tex.error('Specify one and only one feature from three language specific features\n' ..
+               '"jp", "trad" or "smpl"\n' ..
+               'is required.\n' ..
                'For now I\'ll use "lang_jp" for japanese by default.')
-     lang_jp = true
 end
 
 -- 定義函數宏
 local function logic_and(f1, f2, r1, r2)
-    return [f1] and ([f2] and [r1]) or [r2]
+     local rta = f1 and (f2 and r1) or r2
+     return rta
 end
 
 local function logic_if(f1, r1, r2)
-    return [f1] and [r1] or [r2]
+     local rti = f1 and r1 or r2
+     return rti
 end
 
 local function context_height()
-    return dir_vt and (font_extd and 0.625 or 0.5) or 0.88
+    local rth = dir_vt and (font_extd and 0.625 or 0.5) or 0.88
+    return rth
 end
 
 local function context_depth()
-    return dir_vt and (font_extd and 0.625 or 0.5) or 0.12
+    local rtd = dir_vt and (font_extd and 0.625 or 0.5) or 0.12
+    return rtd
 end
 
 -- 主體
-luatexja.jfont.define.jfm {
+luatexja.jfont.define_jfm {
     version = 3,
     dir = logic_if(dir_vt, 'tate', 'yoko'),
     zw = 1,
@@ -79,7 +82,7 @@ luatexja.jfont.define.jfm {
     },
 
     [1] = { -- 読点類
-        chars = logic_and (dir_vr, punc_lg, {}, {'、', '，'}),
+        chars = logic_and (dir_vt, punc_lg, {}, {'、', '，'}),
         align = logic_if (lang_tc, 'middle', 'left'),
         left = 0,
         down = 0,
@@ -332,7 +335,7 @@ luatexja.jfont.define.jfm {
             [1] = logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.25, 0, 0.125, ratio = 0, priority = {0, -1}}),
             [2] = logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.25, 0, 0.125, ratio = 0, priority = {0, -1}}),
             [3] = logic_if(dir_vt, {0.25, 0, 0.125, ratio = 0, priority = {0, -1}}, logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.25, 0, 0.125, priority = {0, -1}})),
-            [4] = {0.25, 0, 0.125, ratio = 0  priority = {0, -1}},
+            [4] = {0.25, 0, 0.125, ratio = 0, priority = {0, -1}},
             [5] = {0.25, 0, 0.125, ratio = 0, priority = {0, -1}},
             [6] = {0.25, 0, 0.125, ratio = 0, priority = {-1, -1}},
             [7] = {0.25, 0, 0.125, ratio = 0, priority = {-1, -1}},
@@ -353,4 +356,4 @@ luatexja.jfont.define.jfm {
     }
 }    
 
-luatexja.jfont.define_jfm(jfm)
+-- luatexja.jfont.define_jfm(eva)
