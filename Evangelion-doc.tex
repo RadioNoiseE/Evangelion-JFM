@@ -1,0 +1,68 @@
+%! TeX Program = LuaLaTeX
+
+\documentclass[
+    paper = a4paper,
+    fontsize = 12Q,
+    jafontsize = 12Q,
+    %line_length = ?zw,
+    %number_of_lines = ?,
+    article
+]{jlreq}
+
+\usepackage[match]{luatexja-fontspec}
+\setmainfont{Linux Libertine O}
+\setmainjfont{Source Han Serif SC}[Language = Chinese Simplified, YokoFeatures = {JFM = {eva/smpl, nstd}}]
+\setsansfont{Linux Biolinum O}
+\setsansjfont{Source Han Sans SC}[Language = Chinese Simplified, YokoFeatures = {JFM = {eva/smpl, nstd}}]
+\setmonofont{Courier New}
+\setmonojfont{Source Han Sans SC}
+
+\usepackage{listings}
+\lstloadlanguages{TeX}
+\lstset{
+    language = TeX,
+    basicstyle = \ttfamily\small,
+    breaklines = true,
+    numbers = left,
+    numberstyle = \tiny,
+    stepnumber = 1,
+    numbersep = 4pt
+}
+
+\usepackage{hyperref}
+\hypersetup{
+    hidelinks,
+    pdftitle = {Evangelion-JFM},
+    pdfauthor = {RadioNoiseE},
+    pdfsubject = {TeX},
+    pdfkeywords = {Japanese Font Metric},
+    pdfstartview = FitV
+}
+
+\def\空{\quad}
+\def\段{\par}
+\def\LuaTeX{Lua\kern-.2ex\TeX}
+
+\title{\sffamily Evangelion Japanese Font Metric for \LuaTeX}
+\author{\large \url{https://github.com/RadioNoiseE/Evangelion-JFM}}
+\date{西历2023年}
+
+\begin{document}
+\parindent2\zw
+
+\maketitle
+
+\begin{abstract}
+    本文档将介绍名为Evangelion Japanese Font Metric（下简称为``\lstinline|Eva-JFM|''）的JFM文件。其适用于简体中文（以下简称为「简中」）、繁体中文（以下简称为「繁中」）及日文字体。旨在提供一个充分利用\LuaTeX{}-ja的\lstinline|priority|特性，基于标准\cite{jlreq}的同时，同时支持一些罕用特性的JFM文件。文档使用中文及西文撰写。\段
+    This document introduces a JFM file named ``Evangelion-JFM'' (hereinafter referred to as ``\lstinline{Eva-JFM}''). It supports Simplified Chinese (hereinafter referred to as ``SC''), Traditional Chinese (hereinafter referred to as ``TC''), and Japanese (hereinafter referred to ad ``JP''). It aims to provide a JFM file that takes full advantage of the \lstinline|priority| and other powerful features from LuaTeX-ja, supporting the well-accepted standards\cite{jlreq}, and supporting some rarely-used features. This documentation is written in both Chinese Simplified and English.
+\end{abstract}
+
+\section{背景及略介：Background Knowledge and a Rough Introduction}
+→2月9日撰
+
+\begin{thebibliography}{99}
+    \addcontentsline{toc}{section}{\refname}
+    \bibitem{jlreq} W3C Japanese Layout Task Force~(ed). \newblock Requirements for Japanese Text Layout (W3C Working Group Note), 2011, 2012. \newblock \url{http://www.w3.org/TR/jlreq/}.
+\end{thebibliography}
+
+\end{document}
