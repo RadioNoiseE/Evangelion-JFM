@@ -1,4 +1,8 @@
--- -*- coding: utf-8 -*-
+---- Evangelion Japanese Font Metric for LuaTeX
+---- Current Version: 1.0.0 (a)
+---- Dev URL: https://github.com/RadioNoiseE/Evangelion-JFM
+---- © Copyright 2023, RadioNoiseE
+
 
 -- 初始化
 local lang_jp, lang_tc, lang_sc, dir_vt, font_extd, punc_lg
@@ -34,7 +38,7 @@ then tex.error('Specify one and only one feature from three language specific fe
 end
 
 -- 定義函數宏
-local function logic_and(f1, f2, r1, r2)
+local function logic_anif(f1, f2, r1, r2)
      local rta = f1 and (f2 and r1) or r2
      return rta
 end
@@ -55,22 +59,22 @@ local function context_depth()
 end
 
 -- 主體
-luatexja.jfont.define_jfm {
+local eva = {
     version = 3,
     dir = logic_if(dir_vt, 'tate', 'yoko'),
     zw = 1,
-    zh = logic_and(dir_vt, font_extd, 1.25, 1),
+    zh = logic_anif(dir_vt, font_extd, 1.25, 1),
     kanjiskip = {0, 0.25, 0},
     xkanjiskip = {0.25, 0.25, 0.125},
 
     [0] = { -- 缺省類
-        align = 'middle',
-        left = 0,
-        down = 0,
         width = 1,
         height = context_height(),
         depth = context_depth(),
         italic = 0,
+        left = 0,
+        down = 0,
+        align = 'middle',
         glue = {
             [1] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1, priority = logic_if(std_nil, {-1, 0}, {-1, -2})}, {}),
             [2] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1, priority = logic_if(std_nil, {-1, -2}, {-1, 0})}, {}),
@@ -82,14 +86,14 @@ luatexja.jfont.define_jfm {
     },
 
     [1] = { -- 読点類
-        chars = logic_and (dir_vt, punc_lg, {}, {'、', '，'}),
-        align = logic_if (lang_tc, 'middle', 'left'),
-        left = 0,
-        down = 0,
+        chars = logic_anif (dir_vt, punc_lg, {}, {'、', '，'}),
         width = 0.5,
         height = context_height(),
         depth = context_depth(),
         italic = 0,
+        left = 0,
+        down = 0,
+        align = logic_if (lang_tc, 'middle', 'left'),
         glue = {
             [0] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {-1, -2}}, {0.5, 0, 0.25, ratio = 0, priority = {-1, -2}}),
             [1] = logic_if(lang_tc, {0.5, 0, 0.25}, {0.5, 0, 0.25}),
@@ -106,36 +110,36 @@ luatexja.jfont.define_jfm {
     },
 
     [101] = { -- 読点類（行間a）
-        chars = logic_and(dir_vt, punc_lg, {'、'}, {}),
-        align = 'left',
-        left = 0.38,
-        down = -0.34,
-        width = 0.0,
+        chars = logic_anif(dir_vt, punc_lg, {'、'}, {}),
+        width = 0,
         height = context_height(),
         depth = context_depth(),
-        italic = 0.0
+        italic = 0,
+        left = 0.38,
+        down = -0.34,
+        align = 'left'
     },
 
     [102] = { -- 読点類（行間b）
-        chars = logic_and(dir_vt, punc_lg, {'，'}, {}),
-        align = 'left',
-        left = logic_if(lang_tc, 0.62, 0.40),
-        down = logic_if(lang_tc, -0.58, -0.26),
-        width = 0.0,
+        chars = logic_anif(dir_vt, punc_lg, {'，'}, {}),
+        width = 0,
         height = context_height(),
         depth = context_depth(),
-        italic = 0.0
+        italic = 0,
+        left = logic_if(lang_tc, 0.62, 0.40),
+        down = logic_if(lang_tc, -0.58, -0.26),
+        align = 'left'
     },
 
     [2] = { -- 句點類
-        chars = logic_and(dir_vt, punc_lg, {}, {'．', '。'}),
-        align = logic_if(lang_tc, 'middle', 'left'),
-        left = 0,
-        down = 0,
+        chars = logic_anif(dir_vt, punc_lg, {}, {'．', '。'}),
         width = 0.5,
         height = context_height(),
         depth = context_depth(),
         italic = 0,
+        left = 0,
+        down = 0,
+        align = logic_if(lang_tc, 'middle', 'left'),
         glue = {
             [0] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {-1, 0}}, {0.5, 0, 0.25, ratio = 0, priority = {-1, 0}}),
             [1] = logic_if(lang_tc, {0.5, 0, 0.25}, {0.5, 0, 0.25, ratio = 0}),
@@ -152,36 +156,36 @@ luatexja.jfont.define_jfm {
     },
 
     [201] = { -- 句點類（行間a）
-        chars = logic_and(dir_vt, punc_lg, {'．'}, {}),
-        align = 'left',
-        left = logic_if(lang_tc, 0.68, 0.34),
-        down = logic_if(lang_tc, -0.58, -0.28),
-        width = 0.0,
+        chars = logic_anif(dir_vt, punc_lg, {'．'}, {}),
+        width = 0,
         height = context_height(),
         depth = context_height(),
-        italic = 0.0
+        italic = 0,
+        left = logic_if(lang_tc, 0.68, 0.34),
+        down = logic_if(lang_tc, -0.58, -0.28),
+        align = 'left'
     },
 
     [202] = { -- 句點類（行間b）
-        chars = logic_and(dir_vt, punc_lg, {'。'}, {}),
-        align = 'left',
-        left = 0.42,
-        down = -0.35,
-        width = 0.0,
+        chars = logic_anif(dir_vt, punc_lg, {'。'}, {}),
+        width = 0,
         height = context_height(),
         depth = context_height(),
-        italic = 0.0
+        italic = 0,
+        left = 0.42,
+        down = -0.35,
+        align = 'left'
     },
 
     [3] = { -- 兩點類
-        chars = logic_if(lang_jp, {}, (logic_and(dir_vt, punc_lg, {}, {'：', '；'}))),
-        align = logic_if(lang_tc, 'middle', 'left'),
-        left = 0,
-        down = 0,
+        chars = logic_if(lang_jp, {}, (logic_anif(dir_vt, punc_lg, {}, {'：', '；'}))),
         width = logic_if(dir_vt, 1, 0.5),
         height = context_height(),
         depth = context_depth(),
         italic = 0,
+        left = 0,
+        down = 0,
+        align = logic_if(lang_tc, 'middle', 'left'),
         glue = {
             [0] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {-1, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {-1, -1}})),
             [1] = logic_if(dir_vt, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1, priority = {0, -1}}, {priority = {0, -1}}), logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {0, -1}})),
@@ -197,25 +201,25 @@ luatexja.jfont.define_jfm {
     },
 
     [301] = { -- 兩點類（行間a）
-        chars = logic_if(lang_jp, {}, logic_and(dir_vt, punc_lg, {'：'}, {})),
-        align = 'left',
-        left = logic_if(lang_tc, 0.94, 0.72),
-        down = logic_if(lang_tc, -0.58, -0.34),
-        width = 0.0,
+        chars = logic_if(lang_jp, {}, logic_anif(dir_vt, punc_lg, {'：'}, {})),
+        width = 0,
         height = context_height(),
         depth = context_depth(),
-        italic = 0.0
+        italic = 0,
+        left = logic_if(lang_tc, 0.94, 0.72),
+        down = logic_if(lang_tc, -0.58, -0.34),
+        align = 'left'
     },
 
     [302] = { -- 兩點類（行間b）
-        chars = logic_if(lang_jp, {}, logic_and(dir_vt, punc_lg, {'；'}, {})),
-        align = 'left',
-        left = logic_if(lang_tc, 0.96, 0.78),
-        down = logic_if(lang_tc, -0.58, -0.34),
-        width = 0.0,
+        chars = logic_if(lang_jp, {}, logic_anif(dir_vt, punc_lg, {'；'}, {})),
+        width = 0,
         height = context_height(),
         depth = context_depth(),
-        italic = 0.0
+        italic = 0,
+        left = logic_if(lang_tc, 0.96, 0.78),
+        down = logic_if(lang_tc, -0.58, -0.34),
+        align = 'left'
     },
 
     [4] = { -- 小書きの仮名類
@@ -225,12 +229,13 @@ luatexja.jfont.define_jfm {
             'ョ', 'ヮ', 'ヵ', 'ヶ', 'ヽ', 'ヾ', 'ㇰ', 'ㇱ', 'ㇲ', 'ㇳ', 'ㇴ',
             'ㇵ', 'ㇶ', 'ㇷ', 'ㇸ', 'ㇹ', 'ㇺ', 'ㇻ', 'ㇼ', 'ㇽ', 'ㇾ', 'ㇿ',
         },
-        align = 'middle',
-        left = 0,
-        down = 0,
         width = 1,
         height = context_height(),
         depth = context_depth(),
+        italic = 0,
+        left = 0,
+        down = 0,
+        align = 'middle',
         glue = {
             [1] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1}, {}),
             [2] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1}, {}),
@@ -242,12 +247,13 @@ luatexja.jfont.define_jfm {
 
     [5] = { -- 疑問感嘆類
         chars = {'！', '？', '‼︎', '⁉︎', '⁈', '⁇'},
-        align = 'middle',
-        left = 0,
-        down = 0,
         width = 1,
         height = context_height(),
         depth = context_depth(),
+        italic = 0,
+        left = 0,
+        down = 0,
+        align = 'middle',
         glue = {
             [0] = logic_if(lang_jp, logic_if(dir_vt, {1, 0, 0.5, ratio = 0, priority = {-1, 0}}, {0.5, 0, 0.25, ratio = 0, priority = {-1, 0}}), {ipririty = {-1, 0}}),
             [1] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1}, {}),
@@ -261,35 +267,35 @@ luatexja.jfont.define_jfm {
 
     [6] = { -- 分離禁止類
         chars = {'—', '―', '‥', '…', '⋯', '〳', '〴', '〵'},
-        align = 'middle',
-        left = 0,
-        down = 0,
         width = 1,
         height = context_height(),
         depth = context_depth(),
         italic = 0,
+        left = 0,
+        down = 0,
+        align = 'middle',
+        kern = {
+            [6] = 0
+        },
         glue = {
             [1] = logic_if(lang_tc, {0.25, 0, 0,125, ratio = 1}, {}),
             [2] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1}, {}),
             [3] = logic_if(dir_vt, {priority = {0, -1}}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1, priority = {0, -1}}, {priority = {0, -1}})),
             [7] = {0.5, 0, 0.25, ratio = 1, priority = {-1, -2}},
             [9] = {0.25, 0, 0.125, ratio = 1, priority = {0, -1}}
-        },
-        kern = {
-            [6] = 0
         }
     },
 
     [7] = { -- 開括號類
         chars = {'（', '〔', '［', '｛', '〈', '《', '「', '『', '【', '｟', '〘', '〖', '〝', '‘', '“'},
-        align = 'right',
-        left = 0,
-        down = 0,
         width = 0.5,
         height = context_height(),
         depth = context_depth(),
         italic = 0,
-        gule = {
+        left = 0,
+        down = 0,
+        align = 'right',
+        glue = {
             [1] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1}, {}),
             [2] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1}, {}),
             [3] = logic_if(dir_vt, {priority = {0, -1}}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1, priority = {0, -1}}, {priority = {0, -1}})),
@@ -300,13 +306,13 @@ luatexja.jfont.define_jfm {
 
     [8] = { -- 閉括號類
         chars = {'）', '〕', '］', '｝', '〉', '》', '」', '』', '】', '｠', '〙', '〗', '〟', '’', '”'},
-        align = 'left',
-        left = 0,
-        down = 0,
         width = 0.5, 
         height = context_height(),
         depth = context_depth(),
         italic = 0,
+        left = 0,
+        down = 0,
+        align = 'left',
         glue = {
             [0] = {0.5, 0, 0.25, ratio = 0, priority = {-1, -2}},
             [1] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1}, {}),
@@ -323,13 +329,13 @@ luatexja.jfont.define_jfm {
 
     [9] = { -- 中點類
         chars = logic_if(lang_jp, {'・', '：', '；'}, {'・', '·'}),
-        align = 'middle',
-        left = 0,
-        down = 0,
         width = 0.5,
         height = context_height(),
         depth = context_depth(),
         italic = 0,
+        left = 0,
+        down = 0,
+        align = 'middle',
         glue = {
             [0] = {0.25, 0, 0.125, ratio = 0, priority = {-1, -1}},
             [1] = logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.25, 0, 0.125, ratio = 0, priority = {0, -1}}),
@@ -356,4 +362,4 @@ luatexja.jfont.define_jfm {
     }
 }    
 
--- luatexja.jfont.define_jfm(eva)
+luatexja.jfont.define_jfm(eva)
