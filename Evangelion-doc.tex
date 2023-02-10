@@ -1,32 +1,37 @@
 %! TeX Program = LuaLaTeX
 
-\documentclass[
-    paper = a4paper,
-    fontsize = 12Q,
-    jafontsize = 12Q,
-    %line_length = ?zw,
-    %number_of_lines = ?,
-    article
-]{jlreq}
+\documentclass{ltjsarticle}
+%\documentclass[
+%    paper = a4paper,
+%    fontsize = 12Q,
+%    jafontsize = 12Q,
+%    %line_length = ?zw,
+%    %number_of_lines = ?,
+%    article
+%]{jlreq}
 
 \usepackage[match]{luatexja-fontspec}
 \setmainfont{Linux Libertine O}
-\setmainjfont{Source Han Serif SC}[Language = Chinese Simplified, YokoFeatures = {JFM = {eva/smpl, nstd}}]
+\setmainjfont{Source Han Serif SC}[Language = Chinese Simplified, YokoFeatures = {JFM = eva/{smpl, nstd}}]
 \setsansfont{Linux Biolinum O}
-\setsansjfont{Source Han Sans SC}[Language = Chinese Simplified, YokoFeatures = {JFM = {eva/smpl, nstd}}]
-\setmonofont{Courier New}
-\setmonojfont{Source Han Sans SC}
+%\setsansjfont{Source Han Sans SC}[Language = Chinese Simplified, YokoFeatures = {JFM = eva/{smpl, nstd}}]
+\setmonofont[Scale=MatchLowercase, FakeStretch=1.137121, RawFeature=-notdef]{Iosevka Slab}
+%\setmonojfont{Source Han Sans SC}
+
+\usepackage{luatexja-adjust}
+\ltjenableadjust[priority = true]
 
 \usepackage{listings}
-\lstloadlanguages{TeX}
+%\lstloadlanguages{TeX}
 \lstset{
-    language = TeX,
+    %language = TeX,
     basicstyle = \ttfamily\small,
     breaklines = true,
     numbers = left,
     numberstyle = \tiny,
     stepnumber = 1,
-    numbersep = 4pt
+    numbersep = 4pt,
+    escapechar = §
 }
 
 \usepackage{hyperref}
@@ -39,26 +44,71 @@
     pdfstartview = FitV
 }
 
+\def\meta#1{{\normalfont\rmfamily\itshape$\langle$#1\/$\rangle$}}
 \def\空{\quad}
 \def\段{\par}
 \def\LuaTeX{Lua\kern-.2ex\TeX}
+\def\pTeX{p\kern-.2ex\TeX}
+\def\pdfTeX{pdf\TeX}
 
-\title{\sffamily Evangelion Japanese Font Metric for \LuaTeX}
+\title{\sffamily\bfseries Evangelion Japanese Font Metric for \LuaTeX}
 \author{\large \url{https://github.com/RadioNoiseE/Evangelion-JFM}}
 \date{西历2023年}
 
 \begin{document}
-\parindent2\zw
+\parindent2\zw\parskip2pt
 
 \maketitle
 
 \begin{abstract}
-    本文档将介绍名为Evangelion Japanese Font Metric（下简称为``\lstinline|Eva-JFM|''）的JFM文件。其适用于简体中文（以下简称为「简中」）、繁体中文（以下简称为「繁中」）及日文字体。旨在提供一个充分利用\LuaTeX{}-ja的\lstinline|priority|特性，基于标准\cite{jlreq}的同时，同时支持一些罕用特性的JFM文件。文档使用中文及西文撰写。\段
-    This document introduces a JFM file named ``Evangelion-JFM'' (hereinafter referred to as ``\lstinline{Eva-JFM}''). It supports Simplified Chinese (hereinafter referred to as ``SC''), Traditional Chinese (hereinafter referred to as ``TC''), and Japanese (hereinafter referred to ad ``JP''). It aims to provide a JFM file that takes full advantage of the \lstinline|priority| and other powerful features from LuaTeX-ja, supporting the well-accepted standards\cite{jlreq}, and supporting some rarely-used features. This documentation is written in both Chinese Simplified and English.
+    本文档将介绍名为Evangelion Japanese Font Metric（下简称为``\texttt{Eva-JFM}''）的JFM文件。其适用于简体中文（以下简称为「简中」）、繁体中文（以下简称为「繁中」）及日文字体。旨在提供一个充分利用\LuaTeX{}-ja的\texttt{priority}特性，基于标准\cite{jlreq}的同时，同时支持一些罕用特性的JFM文件。文档使用中文及西文撰写。\段
+    This document introduces a JFM file named ``Evangelion-JFM'' (hereinafter referred to as ``\texttt{Eva-JFM}''). It supports Simplified Chinese (hereinafter referred to as ``SC''), Traditional Chinese (hereinafter referred to as ``TC''), and Japanese (hereinafter referred to ad ``JP''). It aims to provide a JFM file that takes full advantage of the \texttt{priority} and other powerful features from \LuaTeX{}-ja, supporting the widely accepted standards (i.e. \cite{jlreq}), and supporting some rarely-used features. The documentation is written in both Chinese Simplified and English.
 \end{abstract}
 
 \section{背景及略介：Background Knowledge and a Rough Introduction}
-→2月9日撰
+\TeX{}是高德纳教授于29世纪末开发的强大排版引擎，能够完全满足西文排版的需求。然因时代局限性\footnote{如没有事实上的统一字符编码等。}以及客观原因\footnote{如中日字符集较大，以及书写方式的不同（纵书、横书），标点等。}支持十分有限。为达成中日排版需求，在宏扩展（如CJK等）之外出现了引擎扩展。影响力较大的是\pTeX{}系列。\段
+\pTeX{}系列采用虚拟字体的理念，使用\texttt{TFM/VF}映射TrueType或OpenType字体完成排版。其不支持宏配置字体，也不支持直接生成PDF格式文件。但可以满足日本的传统横纵排版需求（工业标准）。\段
+\pdfTeX{}则是当时另一个\TeX{}的引擎扩展，支持不经DVI格式直接输出PDF格式的文件。然对Unicode（字符编码）及TrueType、OpenType（「现代」矢量字体格式）的支持繁琐或有限。\LuaTeX{}便是基于\pdfTeX{}的引擎扩展，在原生支持Unicode下提供Lua语言扩展（使能够使用\texttt{fontloader}等模块）支持现代字体。宏配置字体特性由\texttt{luaotfload}宏集提供。它也支持直接生成PDF文件。\段
+\LuaTeX{}-ja可看作是对两者的合并。这是一个由日本开发者北川宏典首倡的\LuaTeX{}下的日文支持项目，即将\pTeX{}（大部分）移植到\LuaTeX{}下。由于\LuaTeX{}支持宏配置字体，故不需要\texttt{VF}文件为字体提供映射，但为标点挤压等需求保留并扩展\footnote{如优先挤压（\texttt{priority}）特性，及一些特殊字符（如\texttt{parbdd}、\texttt{glue}）等。}了\texttt{JFM}文件。\段
+本项目就是一个\texttt{JFM}文件。使用Lua的\texttt{callback}，将简中、繁中、日文及行间标点、压缩字体特性集中于\texttt{jfm-eva.lua}文件中。用户可按需调用来完成高质量的中日排版。
+
+\section{安裝及本地配置：Installation and Local Configs}
+本项目将源文件托管于GitHub平台，暂未上传至Comprehensive \TeX{} Archive Net（CTAN）。用户可使用
+\begin{lstlisting}
+    mkdir Evangelion-JFM [&&] cd Evangelion-JFM
+    git clone https://github.com/RadioNoiseE/Evangelion-JFM
+\end{lstlisting}
+获取源文件，再将其放置在本地的\texttt{TEXMF}路径中，如
+\begin{lstlisting}
+    ~/Library/texlive/2023/texmf-dist/tex/luatex/eva-jfm
+\end{lstlisting}
+等。最后运行
+\begin{lstlisting}
+    mktexlsr
+\end{lstlisting}
+更新本地\TeX{}的\texttt{Ls-R}文件即可。\段
+本文件一般情况下无需用户进行本地配置，但若有特殊需求可见\ref{}←☂。
+
+\section{使用：Using}
+以下是在\LaTeX{}下使用繁中字体进行直排的例
+\begin{lstlisting}
+    \usepackage{luatexja-fontspec, luatexja-adjust}
+    \setmainjfont{Source Han Serif TC}[Language = Chinese Traditional, TateFeatures = {JFM = eva/{vert, trad, nstd}}]
+    \ltjenableadjust[priority = true]
+\end{lstlisting}
+（注意需要调用支持直书的文档类或使用\texttt{\textbackslash{}tate}命令。\段
+\LuaTeX-ja的\texttt{JFM}语法为：
+\begin{lstlisting}
+    jfm = §\meta{JFM name}§/{§\meta{JFM features}§}
+\end{lstlisting}
+而一般情况使用\texttt{\textbackslash{}setmainjfont}时则为：
+\begin{lstlisting}
+    \setmainjfont{§\meta{font name}§}[Language = §\meta{language name}§, §\meta{dir}§ = {JFM = §\meta{JFM name}§/{§\meta{JFM features}§}}]
+\end{lstlisting}
+其中，\meta{font name}自然为需要的字体名称。\meta{language name}在使用日文字体时可忽略，而使用简中、繁中字体时为必填，因\LuaTeX-ja会默认将其覆盖为\texttt{Japanese}选项，而这会带来灾难性的后果\footnote{比如标点位置：日文为冒号及分号中置、其余偏靠，简中是全部偏靠，而繁中则是统统中置。}。\meta{dir}选填\texttt{TateFeatures}（直书）或\texttt{YokoFeatures}（横书）。其后的\meta{JFM name}为调用\texttt{JFM}的文件名，此时填\texttt{eva}\footnote{\LuaTeX-ja会依\texttt{jfm-\meta{JFM name}.lua}的格式来查找该文件。}。最后的\meta{JFM features}选项为选择使用的\texttt{JFM}特性，详细请看第\ref{sec:feat}章。\段
+其他情况下设置\texttt{JFM}及其特性请看\LuaTeX-ja文档\cite{luatexja-doc}。
+
+\section{支持特性：Supported Features}\label{sec:feat}
 
 \begin{thebibliography}{99}
     \addcontentsline{toc}{section}{\refname}
