@@ -7,34 +7,34 @@
 -- 初始化
 local lang_jp, lang_tc, lang_sc, dir_vt, font_extd, punc_lg
 
-if luatexja.jfont.jfm_feature
-then lang_jp = luatexja.jfont.jfm_feature.jp
-     lang_tc = luatexja.jfont.jfm_feature.trad
-     lang_sc = luatexja.jfont.jfm_feature.smpl
-     dir_vt = luatexja.jfont.jfm_feature.vert
-     font_extd = luatexja.jfont.jfm_feature.extd
-     punc_lg = luatexja.jfont.jfm_feature.lgp
-     std_nil = luatexja.jfont.jfm_feature.nstd
+if luatexja.jfont.jfm_feature then 
+    lang_jp = luatexja.jfont.jfm_feature.jp
+    lang_tc = luatexja.jfont.jfm_feature.trad
+    lang_sc = luatexja.jfont.jfm_feature.smpl
+    dir_vt = luatexja.jfont.jfm_feature.vert
+    font_extd = luatexja.jfont.jfm_feature.extd
+    punc_lg = luatexja.jfont.jfm_feature.lgp
+    std_nil = luatexja.jfont.jfm_feature.nstd
 end
 
 -- 預處理及容錯
-if font_extd == true and dir_vt == false
-then tex.error('JFM feature "extd" only works with feature "vert".\n' ..
-               'For now I\'ll ignore it.')
+if font_extd == true and dir_vt == false then
+    tex.error('JFM feature "extd" only works with feature "vert".\n' ..
+              'For now I\'ll ignore it.')
 end
 
-if punc_lg == true and dir_vt == false
-then tex.error('JFM feature "lgp" only works with feature "vert".\n' ..
-               'For now I\'ll ignore it.')
+if punc_lg == true and dir_vt == false then
+    tex.error('JFM feature "lgp" only works with feature "vert".\n' ..
+              'For now I\'ll ignore it.')
 end
 
-if not ((lang_jp and not (lang_tc or lang_sc))
-    or  (lang_tc and not (lang_jp or lang_sc))
-    or  (lang_sc and not (lang_jp or lang_tc)))
-then tex.error('Specify one and only one feature from three language specific features\n' ..
-               '"jp", "trad" or "smpl"\n' ..
-               'is required.\n' ..
-               'For now I\'ll use "lang_jp" for japanese by default.')
+if not ((lang_jp and not (lang_tc or lang_sc)) or
+    (lang_tc and not (lang_jp or lang_sc)) or
+    (lang_sc and not (lang_jp or lang_tc))) then
+    tex.error('Specify one and only one feature from three language specific features\n' ..
+              '"jp", "trad" or "smpl"\n' ..
+              'is required.\n' ..
+              'For now I\'ll use "lang_jp" for japanese by default.')
 end
 
 -- 定義函數宏
@@ -247,21 +247,22 @@ local eva = {
 
     [5] = { -- 疑問感嘆類
         chars = {'！', '？', '‼︎', '⁉︎', '⁈', '⁇'},
-        width = 1,
+        width = logic_if(dir_vt, 1, logic_if(lang_sc, 0.5, 1)),
         height = context_height(),
         depth = context_depth(),
         italic = 0,
         left = 0,
         down = 0,
-        align = 'middle',
+        align = logic_if(dir_vt, 'middle', logic_if(lang_sc, 'left', 'middle')),
         glue = {
-            [0] = logic_if(lang_jp, logic_if(dir_vt, {1, 0, 0.5, ratio = 0, priority = {-1, 0}}, {0.5, 0, 0.25, ratio = 0, priority = {-1, 0}}), {ipririty = {-1, 0}}),
-            [1] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1}, {}),
-            [2] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1}, {}),
-            [3] = logic_if(dir_vt, {priority = {-1, -1}}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1, priority = {-1, -1}}, {priority = {-1, -1}})),
-            [4] = logic_if(lang_jp, logic_if(dir_vt, {1, 0, 0.5, ratio = 0}, {0.5, 0, 0.25, ratio = 0}), {}),
+            [0] = logic_if(dir_vt, logic_if(lang_jp, {1, 0, 0.5, ratio = 0, priority = {-1, 0}}, {priority = {-1, 0}}), logic_if(lang_tc, {priority = {-1, 0}}, {0.5, 0, 0.25, ratio = 0, priority = {-1, 0}})),
+            [1] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1}, logic_anif(not dir_vt, lang_sc, {0.5, 0, 0.25, ratio = 0}, {})),
+            [2] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1}, logic_anif(not dir_vt, lang_sc, {0.5, 0, 0.25, ratio = 0}, {})),
+            [3] = logic_if(dir_vt, {priority = {-1, -1}}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1, priority = {-1, -1}}, {0.75, 0, 0.25, ratio = 1/3, priority = {-1, -1}})),
+            [4] = logic_if(dir_vt, logic_if(lang_jp, {1, 0, 0.5, ratio = 0}, {}), logic_if(lang_tc, {}, {0.5, 0, 0.25, ratio = 0})),
             [7] = {0.5, 0, 0.25, ratio = 1, priority = {-1, -2}},
-            [9] = {0.25, 0, 0.125, ratio = 1, priority = {-1, -1}}
+            [8] = logic_anif(not dir_vt, lang_sc, {0.5, 0, 0.25, ratio = 0}, {}),
+            [9] = logic_anif(not dir_vt, lang_sc, {0.75, 0, 0.25, ratio = 1/3, priority = {-1, -1}}, {0.25, 0, 0.125, ratio = 1, priority = {-1, -1}})
         }
     },
 
