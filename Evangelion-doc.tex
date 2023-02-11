@@ -45,7 +45,7 @@
     pdfstartview = FitV
 }
 
-\long\def\feature#1#2{{\smallskip\vbox{\parindent=\zw\hangindent=2\zw\texttt{#1}\\\indent#2\smallskip}}}
+\long\def\feature#1#2#3{{\smallskip\vbox{\parindent=\zw\hangindent=2\zw\texttt{#1}\quad\texttt{\itshape #2\/}\\\indent#3\smallskip}}}
 \def\meta#1{{\normalfont\rmfamily\itshape$\langle$#1\/$\rangle$}}
 \def\空{\quad}
 \def\段{\par}
@@ -114,15 +114,46 @@
 
 \subsection{語言特性：Language Features}
 本区特性必填且只可填一个。不然则会报错。\段
-\feature{jp}{
+\feature{jp}{JaPanese}{
     日本语特性。当使用日文字体时需调用该特性。其与简中、繁中区别在于问号「？\inhibitglue」及感叹号「！\inhibitglue」后插入的伸缩胶量。影响特性\texttt{lgp}，且对内部分组有影响。
 }
-\feature{trad}{
+\feature{trad}{TRADitional chinese}{
     繁中特性。当使用繁体中文字体时需调用。与简中、日本语特性的区别源于中置的标点。故，对于全部标点左右插入的伸缩胶的量都与简中、日本语不同。针对句点紧挨闭括号、标点位于句末时等皆有优化。
 }
-\feature{smpl}{
+\feature{smpl}{SMPLified}{
     简中特性，使用简体中文字体排版时调用。与日本语、繁中特性区别源于分号「；\inhibitglue」及冒号「：\inhibitglue」等全部偏靠从而影响其左右插入伸缩胶的量。\textsf{Eva-JFM}对一些（不该出现的）神奇情况（如两个句号同时出现、开括号后出现问号等）进行优化（？\inhibitglue）。对问号「？\inhibitglue」、感叹号「！\inhibitglue」作了特殊处理。
 }
+
+\subsection{方向特性：(Writing) Direction Features}
+本分区特性与全部其他特性兼容，可同时调用。\段
+\feature{vert}{VERTical writing}{
+    直书特性。对标点挤压、分组有影响。直书时必须调用。
+}
+
+\subsection{扩展特性：Extended Features}
+本区特性依赖\texttt{vert}特性，需同时调用。否则报错。\段
+\feature{extd}{EXTenDed font}{
+    压缩字体特性。目前仅支持横比纵为100比80的字体压缩\footnote{日本新闻字体，如每日新闻明朝体。}。需同\texttt{extend}（\textsf{luaotfload}）或\texttt{FakeStretch}（\textsf{fontspec}）同时使用。
+}
+\feature{lgp}{LineGap Punctuations}{
+    行间标点特性。该特性将部分标点「悬挂」至行间。日文字体时与繁、简中字体时会有区别。详见第\ref{sec:lgp}章。
+}
+
+\subsection{私有特性：Dark Features}
+使用本区特性前请先确保你清楚地知道你在做什么。\段
+\feature{nstd}{Non STandarD}{
+    忽略标准特性。字体排印标准\cite{jlreq}认为逗号「，\inhibitglue」的压缩权重应比句号「。\inhibitglue」要低。本特性将句号的压缩优先级与逗号交换，使逗号被优先压缩\footnote{考虑逗号、句号在文字系统中占的重量，以及「开明」压缩风格。}。仅在使用\textsf{luatexja-adjust}宏集时有用。
+}
+
+\section{行间标点特性：More About Linegap Punctuations}\label{sec:lgp}
+本章节将提供更多详细的关于行间标点特性的信息，以及可能出现的问题及其解决方案。
+
+\subsection{关于「悬挂」：About ``Hanging''}
+行间标点可见于古籍之中，是将标点符号与直书结合妥协的产物。
+传统上悬挂句号「。\inhibitglue」与逗号「，\inhibitglue」。而\textsf{Eva-JFM}特性在繁中、简中特性下会悬挂句号、逗号、顿号「、\inhibitglue」、冒号「：\inhibitglue」及分号「；\inhibitglue」，日文字体下则不悬挂冒号及分号。原因在于日本习惯上将冒号与分号看作「中点类」，直书时横置处理。
+本JFM将全部标点悬挂于字体右下位置。详见下一节。
+
+\subsection{悬挂的位置：Hanging Position}
 
 \begin{thebibliography}{99}
     \addcontentsline{toc}{section}{\refname}
