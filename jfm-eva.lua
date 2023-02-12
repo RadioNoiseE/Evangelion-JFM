@@ -1,5 +1,5 @@
 ---- Evangelion Japanese Font Metric for LuaTeX
----- Current Version: 1.0.0 (a)
+---- Current Version: 1.0.0 (b)
 ---- Dev URL: https://github.com/RadioNoiseE/Evangelion-JFM
 ---- © Copyright 2023, RadioNoiseE
 
@@ -86,16 +86,16 @@ local eva = {
     },
 
     [1] = { -- 読点類
-        chars = logic_anif (dir_vt, punc_lg, {}, {'、', '，'}),
+        chars = logic_anif(dir_vt, punc_lg, {}, {'、', '，'}),
         width = 0.5,
         height = context_height(),
         depth = context_depth(),
         italic = 0,
         left = 0,
         down = 0,
-        align = logic_if (lang_tc, 'middle', 'left'),
+        align = logic_if(lang_tc, 'middle', 'left'),
         glue = {
-            [0] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {-1, -2}}, {0.5, 0, 0.25, ratio = 0, priority = {-1, -2}}),
+            [0] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = logic_if(std_nil, {-1, 0}, {-1, -2})}, {0.5, 0, 0.25, ratio = 0, priority = logic_if(std_nil, {-1, 0}, {-1, -2})}),
             [1] = logic_if(lang_tc, {0.5, 0, 0.25}, {0.5, 0, 0.25}),
             [2] = logic_if(lang_tc, {0.5, 0, 0.5}, {0.5, 0, 0.25}),
             [3] = logic_if(dir_vt, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {0, -1}}, {0.5, 0, 0.25, priority = {0, -1}}), logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {0, -1}})),
@@ -103,7 +103,7 @@ local eva = {
             [5] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = logic_if(std_nil, {0, 0}, {0, -2})}, {0.5, 0, 0.25, ratio = 0, priority = logic_if(std_nil, {0, 0}, {0, -2})}),
             [6] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = logic_if(std_nil, {-1, 0}, {-1, -2})}, {0.5, 0, 0.25, ratio = 0, priority = logic_if(std_nil, {-1, 0}, {-1, -2})}),
             [7] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = logic_if(std_nil, {-1, 0}, {-1, -2})}, {0.5, 0, 0.25, ratio = 0, priority = logic_if(std_nil, {-1, 0}, {-1, -2})}),
-            [8] = logic_if(lang_tc, {0.25, 0, 0.125}, {0.5, 0, 0.25, ratio = 0}),
+            [8] = logic_if(lang_tc, {0.25, 0, 0.125}, {}),
             [9] = logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.75, 0, 0.25, ratio = 1/3, priority = {0, -1}})
         },
         end_adjust = logic_if(lang_tc, {0, 0}, {0.5, 0})
@@ -141,7 +141,7 @@ local eva = {
         down = 0,
         align = logic_if(lang_tc, 'middle', 'left'),
         glue = {
-            [0] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {-1, 0}}, {0.5, 0, 0.25, ratio = 0, priority = {-1, 0}}),
+            [0] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = logic_if(std_nil, {-1, -2}, {-1, 0})}, {0.5, 0, 0.25, ratio = 0, priority = logic_if(std_nil, {-1, -2}, {-1, 0})}),
             [1] = logic_if(lang_tc, {0.5, 0, 0.25}, {0.5, 0, 0.25, ratio = 0}),
             [2] = logic_if(lang_tc, {0.5, 0, 0.25}, {0.5, 0, 0.25, ratio = 0}),
             [3] = logic_if(dir_vt, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {0, -1}}, {0.5, 0, 0.25, priority = {0, -1}}), logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {0, -1}})),
@@ -149,7 +149,7 @@ local eva = {
             [5] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = logic_if(std_nil, {0, -2}, {0, 0})}, {0.5, 0, 0.25, ratio = 0, priority = logic_if(std_nil, {0, -2}, {0, 0})}),
             [6] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = logic_if(std_nil, {-1, -2}, {-1, 0})}, {0.5, 0, 0.25, ratio = 0, priority = logic_if(std_nil, {-1, -2}, {-1, 0})}),
             [7] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = logic_if(std_nil, {-1, -2}, {-1, 0})}, {0.5, 0, 0.25, ratio = 0, priority = logic_if(std_nil, {-1, -2}, {-1, 0})}),
-            [8] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0}, {0.5, 0, 0.25, ratio = 0}),
+            [8] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0}, {}),
             [9] = logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.75, 0, 0.25, ratio = 1/3, priority = {0, -1}})
         },
         end_adjust = logic_if(lang_tc, {0, 0}, {0.5, 0})
@@ -227,7 +227,7 @@ local eva = {
             'ぁ', 'ぃ', 'ぅ', 'ぇ', 'ぉ', 'っ', 'ゃ', 'ゅ', 'ょ', 'ゎ', 'ゕ',
             'ゖ', 'ゝ', 'ゞ', 'ァ', 'ィ', 'ゥ', 'ェ', 'ォ', 'ッ', 'ャ', 'ュ',
             'ョ', 'ヮ', 'ヵ', 'ヶ', 'ヽ', 'ヾ', 'ㇰ', 'ㇱ', 'ㇲ', 'ㇳ', 'ㇴ',
-            'ㇵ', 'ㇶ', 'ㇷ', 'ㇸ', 'ㇹ', 'ㇺ', 'ㇻ', 'ㇼ', 'ㇽ', 'ㇾ', 'ㇿ',
+            'ㇵ', 'ㇶ', 'ㇷ', 'ㇸ', 'ㇹ', 'ㇺ', 'ㇻ', 'ㇼ', 'ㇽ', 'ㇾ', 'ㇿ'
         },
         width = 1,
         height = context_height(),
@@ -358,7 +358,7 @@ local eva = {
         }
     },
 
-    [101] = { -- 伸縮膠
+    [11] = { -- 伸縮膠
         chars = {'glue'}
     }
 }    
