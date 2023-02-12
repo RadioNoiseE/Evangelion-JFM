@@ -10,6 +10,8 @@
 %    article
 %]{jlreq}
 
+\usepackage{graphicx}
+
 \usepackage[match]{luatexja-fontspec}
 \setmainfont{Linux Libertine O}
 \setmainjfont{Source Han Serif SC}[Language = Chinese Simplified, YokoFeatures = {JFM = eva/{smpl, nstd}}]
@@ -31,6 +33,7 @@
     numbers = left,
     numberstyle = \tiny,
     stepnumber = 1,
+    gobble = 4,
     numbersep = 6pt,
     escapechar = §
 }
@@ -64,7 +67,7 @@
 
 \begin{abstract}
     本文档将介绍名为Evangelion Japanese Font Metric（下简称为``\textsf{Eva-JFM}''）的JFM文件。其适用于简体中文（以下简称为「简中」）、繁体中文（以下简称为「繁中」）及日文字体的横直排。旨在提供一个充分利用\LuaTeX{}-ja的\texttt{priority}特性，基于标准\cite{jlreq}的同时，同时支持一些罕用特性的JFM文件。文档使用中文及西文撰写。\段
-    This document introduces a JFM file named ``Evangelion-JFM'' (hereinafter referred to as ``\textsf{Eva-JFM}''). It supports vertical and horizontal written Simplified Chinese (hereinafter referred to as ``SC''), Traditional Chinese (hereinafter referred to as ``TC''), and Japanese (hereinafter referred to ad ``JP''). It aims to provide a JFM file that takes full advantage of the \texttt{priority} and other powerful features from \LuaTeX{}-ja, supporting the widely accepted standards (i.e. \cite{jlreq}), and supporting some rarely-used features. The documentation is written in both Chinese Simplified and English.
+    % This document introduces a JFM file named ``Evangelion-JFM'' (hereinafter referred to as ``\textsf{Eva-JFM}''). It supports vertical and horizontal written Simplified Chinese (hereinafter referred to as ``SC''), Traditional Chinese (hereinafter referred to as ``TC''), and Japanese (hereinafter referred to ad ``JP''). It aims to provide a JFM file that takes full advantage of the \texttt{priority} and other powerful features from \LuaTeX{}-ja, supporting the widely accepted standards (i.e. \cite{jlreq}), and supporting some rarely-used features. The documentation is written in both Chinese Simplified and English.
 \end{abstract}
 
 \section{背景及略介：Background Knowledge and a Rough Introduction}
@@ -155,6 +158,12 @@
 
 \subsection{懸掛的位置：Hanging Position}
 %Figure Here
+\begin{figure}[htb]
+    \centering
+    \includegraphics[height = 12\zh]{figure/fig-tc.pdf}\空\includegraphics[height = 12\zh]{figure/fig-jp.pdf}
+    \caption{行间标点特性示意图}\label{fig:lgp}
+\end{figure}
+
 标点悬挂的位置有以下考量，可参照图\ref{fig:lgp}。若有特殊需求请看第\ref{sec:config}节。优先级由上至下。
 \begin{itemize}
     \item 三种字体风格统一，位置原则上一致。（故，繁中字体也悬挂于右下、而非居中）
@@ -191,15 +200,19 @@
     ]{§\meta{main font}§}
 \end{lstlisting}
 其中首个\meta{language}可选填\texttt{Japanese}、\texttt{Chinese Traditional}或\texttt{Chinese Simplified}，第二个则填语言特性分区的对应\texttt{jp}、\texttt{trad}及\texttt{smpl}特性。\meta{utf-8 code}则为需要替换的标点符号的Unicode编码，如需替换句号（ideographic full stop，\texttt{U+3002}）则填\texttt{3002}\footnote{编码可至\url{https://www.unicode.org/charts/unihanrsindex.html}查询。}即可。
-\meta{symbol font}以及\meta{main font}填符号字体名称、正文字体名称即可。具体语法及示例可看\cite{luatexja-doc}
+\meta{symbol font}以及\meta{main font}填符号字体名称、正文字体名称即可。具体语法及示例可看\cite{luatexja-doc}。
+
+\section{启發：Inspiration}
+\textsf{Eva-JFM}的内部分组受\texttt{min10.tfm}\cite{min10}的启发，支持的\texttt{priority}特性则取自阿部紀行氏的\texttt{jlreq.lua}文件。其余可见参考文献。
 
 \begin{thebibliography}{99}
     \addcontentsline{toc}{section}{\refname}
-    \bibitem{jlreq} W3C Japanese Layout Task Force~(ed). \newblock Requirements for Japanese Text Layout (W3C Working Group Note), 2011, 2012. \newblock \url{http://www.w3.org/TR/jlreq/}
+    \bibitem{jlreq} W3C Japanese Layout Task Force~(ed). \newblock Requirements for Japanese Text Layout (W3C Working Group Note), 2011, 2012. \newblock \url{http://www.w3.org/TR/jlreq/}.
     \bibitem{luatexja-doc} \LuaTeX-jaパッケージ. \newblock \LuaTeX-jaプロジェクトチーム, 2022, 2023.
     \bibitem{unicode} The Unicode Standard Version 15.0 - Core Specification. \newblock The Unicode Consortium, 2022.
     \bibitem{tex-by-topic} Victor Eijkhout. \newblock \TeX by Topic, A \TeX nician's Reference, Addison-Wesley, 1992.
-    \bibitem{min10} 乙部厳己・「min10フォントについて」. \newblock \url{http://argent.shinshu-u.ac.jp/~otobe/tex/files/min10.pdf}
+    \bibitem{min10} 乙部厳己・「min10フォントについて」. \newblock \url{http://argent.shinshu-u.ac.jp/~otobe/tex/files/min10.pdf}.
+    \bibitem{ltxjlreq} Noriyuki Abe. \newblock Jlreq Document Class. \newblock \url{https://github.com/abenori/jlreq}.
 \end{thebibliography}
 
 \section*{程式碼：Implementation}\label{sec:impl}
