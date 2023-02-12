@@ -66,16 +66,16 @@
 \maketitle
 
 \begin{abstract}
-    本文档将介绍名为Evangelion Japanese Font Metric（下简称为``\textsf{Eva-JFM}''）的JFM文件。其适用于简体中文（以下简称为「简中」）、繁体中文（以下简称为「繁中」）及日文字体的横直排。旨在提供一个充分利用\LuaTeX{}-ja的\texttt{priority}特性，基于标准\cite{jlreq}的同时，同时支持一些罕用特性的JFM文件。文档使用中文及西文撰写。\段
+    本文档将介绍名为Evangelion Japanese Font Metric（下简称为``\textsf{Eva-JFM}''）的JFM文件。其适用于简体中文（以下简称为「简中」）、繁体中文（以下简称为「繁中」）及日文字体的横直排。旨在提供一个充分利用\LuaTeX{}-ja的\texttt{priority}特性，基于标准\cite{jlreq}的同时，支持一些罕用特性的JFM文件。文档暂仅使用中文撰写。\段
     % This document introduces a JFM file named ``Evangelion-JFM'' (hereinafter referred to as ``\textsf{Eva-JFM}''). It supports vertical and horizontal written Simplified Chinese (hereinafter referred to as ``SC''), Traditional Chinese (hereinafter referred to as ``TC''), and Japanese (hereinafter referred to ad ``JP''). It aims to provide a JFM file that takes full advantage of the \texttt{priority} and other powerful features from \LuaTeX{}-ja, supporting the widely accepted standards (i.e. \cite{jlreq}), and supporting some rarely-used features. The documentation is written in both Chinese Simplified and English.
 \end{abstract}
 
 \section{背景及略介：Background Knowledge and a Rough Introduction}
-\TeX{}是高德纳教授于29世纪末开发的强大排版引擎，能够完全满足西文排版的需求。然因时代局限性\footnote{如没有事实上的统一字符编码等。}以及客观原因\footnote{如中日字符集较大，以及书写方式的不同（纵书、横书），标点等。}支持十分有限。为达成中日排版需求，在宏扩展（如\textsf{CJK}等）之外出现了引擎扩展。影响力较大的是\pTeX{}系列。\段
+\TeX{}是高德纳教授于20世纪末开发的强大排版引擎，能够完全满足西文排版的需求。然因时代局限性\footnote{如没有事实上的统一字符编码等。}以及客观原因\footnote{如中日字符集较大，以及书写方式的不同（纵书、横书），标点等。}对中日排版支持十分有限。为达成中日排版需求，在宏扩展（如\textsf{CJK}等）之外出现了引擎扩展。影响力较大的是\pTeX{}系列。\段
 \pTeX{}系列采用虚拟字体的理念，使用\texttt{TFM/VF}映射TrueType或OpenType字体完成排版。其不支持宏配置字体，也不支持直接生成PDF格式文件。但可以满足日本的传统横纵排版需求（工业标准）。\段
 \pdfTeX{}则是当时另一个\TeX{}的引擎扩展，支持不经DVI格式直接输出PDF格式的文件。然对Unicode（字符编码）及TrueType、OpenType（「现代」矢量字体格式）的支持繁琐或有限。\LuaTeX{}便是基于\pdfTeX{}的引擎扩展，在原生支持Unicode下提供Lua语言扩展（使能够使用\textsf{fontloader}等模块）支持现代字体。宏配置字体特性由\textsf{luaotfload}宏集提供。它也支持直接生成PDF文件。\段
-\LuaTeX{}-ja可看作是对两者的合并。这是一个由日本开发者北川宏典首倡的\LuaTeX{}下的日文支持项目，即将\pTeX{}（大部分）移植到\LuaTeX{}下。由于\LuaTeX{}支持宏配置字体，故不需要\texttt{VF}文件为字体提供映射，但为标点挤压等需求保留并扩展\footnote{如优先挤压（\texttt{priority}）特性，及一些特殊字符（如\texttt{parbdd}、\texttt{glue}）等。}了JFM文件。\段
-本项目就是一个JFM文件。使用Lua的\texttt{callback}，将简中、繁中、日文及横纵方向、行间标点、压缩字体等特性集中于\texttt{jfm-eva.lua}单个文件中。用户可按需调用特性来完成高质量的中日排版。
+\LuaTeX{}-ja可看作是对两者的合并。这是一个由日本开发者北川弘典首倡的\LuaTeX{}下的日文支持项目，即将\pTeX{}（大部分）移植到\LuaTeX{}下。由于\LuaTeX{}支持宏配置字体，故不需要\texttt{VF}文件为字体提供映射，但为标点挤压等需求保留并扩展\footnote{如优先挤压（\texttt{priority}）特性，及一些特殊字符（如\texttt{parbdd}、\texttt{glue}）等。}了JFM文件。\段
+本项目就是一个JFM文件。使用\LuaTeX{}的\texttt{callback}，将简中、繁中、日文及横纵方向、行间标点、压缩字体等特性集中于\texttt{jfm-eva.lua}单个文件中。用户可按需调用特性来完成高质量的中日排版。
 
 \section{安裝及本地配置：Installation and Local Configs}
 本项目将源文件托管于GitHub平台，暂未上传至Comprehensive \TeX{} Archive Net（CTAN）。用户可使用
@@ -92,7 +92,7 @@
     mktexlsr
 \end{lstlisting}
 更新本地\TeX{}的\texttt{Ls-R}文件即可。\段
-本文件一般情况下无需用户进行本地配置，但若有特殊需求可见\ref{sec:config}。
+本文件一般情况下无需用户进行本地配置，但若有特殊需求可见第\ref{sec:config}节。
 
 \section{使用：Using}
 以下是在\LaTeX{}下使用繁中字体进行直排的示例
@@ -166,12 +166,12 @@
 
 标点悬挂的位置有以下考量，可参照图\ref{fig:lgp}。若有特殊需求请看第\ref{sec:config}节。优先级由上至下。
 \begin{itemize}
-    \item 三种字体风格统一，位置原则上一致。（故，繁中字体也悬挂于右下、而非居中）
+    \item 三种字体风格统一，位置原则上一致（故，繁中字体也悬挂于右下、而非居中）；
     \item 不同标点中的相同（似）元素位置相同；
     \item 繁中、简中、日文字体标点触字框右边线；
     \item 不同标点符号因形状不同可于字框底线略下沉或上浮；
     \item 不同标点符号因大小不同可靠近或远离字框右边线；
-    \item 三种字体可分别因涉及的差异而位置略微区别。
+    \item 三种字体可分别因字符设计的差异而位置略微区别。
 \end{itemize}
 
 \subsection{用戶配置：Configurations}\label{sec:config}
@@ -203,7 +203,7 @@
 \meta{symbol font}以及\meta{main font}填符号字体名称、正文字体名称即可。具体语法及示例可看\cite{luatexja-doc}。
 
 \section{启發：Inspiration}
-\textsf{Eva-JFM}的内部分组受\texttt{min10.tfm}\cite{min10}的启发，支持的\texttt{priority}特性则取自阿部紀行氏的\texttt{jlreq.lua}文件。其余可见参考文献。
+\textsf{Eva-JFM}的内部分组受\texttt{min10.tfm} \cite{min10}的启发，支持的\texttt{priority}特性则取自阿部紀行氏的\texttt{jlreq.lua} \cite{ltxjlreq}文件。其余可见参考文献。
 
 \begin{thebibliography}{99}
     \addcontentsline{toc}{section}{\refname}
@@ -216,6 +216,7 @@
 \end{thebibliography}
 
 \section*{程式碼：Implementation}\label{sec:impl}
+以下为\texttt{jfm-eva.lua}文件内容，供参考。%及二次开发等。
 \lstinputlisting{jfm-eva.lua}
 
 \end{document}
