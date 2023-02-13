@@ -5,7 +5,7 @@
 
 
 -- 初始化
-local lang_jp, lang_tc, lang_sc, dir_vt, font_extd, punc_lg
+local lang_jp, lang_tc, lang_sc, dir_vt, font_extd, punc_lg, punc_hg, std_nil
 
 if luatexja.jfont.jfm_feature then 
     lang_jp = luatexja.jfont.jfm_feature.jp
@@ -14,6 +14,7 @@ if luatexja.jfont.jfm_feature then
     dir_vt = luatexja.jfont.jfm_feature.vert
     font_extd = luatexja.jfont.jfm_feature.extd
     punc_lg = luatexja.jfont.jfm_feature.lgp
+    punc_hg = luatexja.jfont.jfm_feature.hgp
     std_nil = luatexja.jfont.jfm_feature.nstd
 end
 
@@ -106,7 +107,7 @@ local eva = {
             [8] = logic_if(lang_tc, {0.25, 0, 0.125}, {}),
             [9] = logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.75, 0, 0.25, ratio = 1/3, priority = {0, -1}})
         },
-        -- end_adjust = logic_if(lang_tc, {0, 0}, {0.5, 0})
+        end_adjust = logic_if(lang_tc, {0.25, 0}, logic_if(punc_hg, {-0.5, 0}, {0, 0}))
     },
 
     [101] = { -- 読点類（行間a）
@@ -152,7 +153,7 @@ local eva = {
             [8] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0}, {}),
             [9] = logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.75, 0, 0.25, ratio = 1/3, priority = {0, -1}})
         },
-        -- end_adjust = logic_if(lang_tc, {0, 0}, {0.5, 0})
+        end_adjust = logic_if(lang_tc, {0.25, 0}, logic_if(punc_hg, {-0.5, 0}, {0, 0}))
     },
 
     [201] = { -- 句點類（行間a）

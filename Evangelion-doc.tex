@@ -75,7 +75,7 @@
 \pTeX{}系列采用虚拟字体的理念，使用\texttt{TFM/VF}映射TrueType或OpenType字体完成排版。其不支持宏配置字体，也不支持直接生成PDF格式文件。但可以满足日本的传统横纵排版需求（工业标准）。\段
 \pdfTeX{}则是当时另一个\TeX{}的引擎扩展，支持不经DVI格式直接输出PDF格式的文件。然对Unicode（字符编码）及TrueType、OpenType（「现代」矢量字体格式）的支持繁琐或有限。\LuaTeX{}便是基于\pdfTeX{}的引擎扩展，在原生支持Unicode下提供Lua语言扩展（使能够使用\textsf{fontloader}等模块）支持现代字体。宏配置字体特性由\textsf{luaotfload}宏集提供。它也支持直接生成PDF文件。\段
 \LuaTeX{}-ja可看作是对两者的合并。这是一个由日本开发者北川弘典首倡的\LuaTeX{}下的日文支持项目，即将\pTeX{}（大部分）移植到\LuaTeX{}下。由于\LuaTeX{}支持宏配置字体，故不需要\texttt{VF}文件为字体提供映射，但为标点挤压等需求保留并扩展\footnote{如优先挤压（\texttt{priority}）特性，及一些特殊字符（如\texttt{parbdd}、\texttt{glue}）等。}了JFM文件。\段
-本项目就是一个JFM文件。使用\LuaTeX{}的\texttt{callback}，将简中、繁中、日文及横纵方向、行间标点、压缩字体等特性集中于\texttt{jfm-eva.lua}单个文件中。用户可按需调用特性来完成高质量的中日排版。
+本项目就是一个JFM文件。使用\LuaTeX{}的\texttt{callback}，将简中、繁中、日文及横纵方向、行间标点、悬挂标点、压缩字体等特性集中于\texttt{jfm-eva.lua}单个文件中。用户可按需调用特性来完成高质量的中日排版。
 
 \section{安裝及本地配置：Installation and Local Configs}
 本项目将源文件托管于GitHub平台，暂未上传至Comprehensive \TeX{} Archive Net（CTAN）。用户可使用
@@ -134,12 +134,15 @@
 }
 
 \subsection{擴展特性：Extended Features}
-本区特性依赖\texttt{vert}特性，需同时调用。否则报错。\段
+本区特性\texttt{hgp}不依赖\texttt{vert}特性，其余需同\texttt{vert}特性同时调用。否则报错。\段
 \feature{extd}{EXTenDed font}{%
     压缩字体特性。目前仅支持横比纵为100比80的字体压缩\footnotemark{}。需同\texttt{extend}（\textsf{luaotfload}）或\texttt{FakeStretch}（\textsf{fontspec}）同时使用。
 }\footnotetext{日本新闻字体，如每日新闻明朝体。}
 \feature{lgp}{LineGap Punctuations}{%
     行间标点特性。该特性将部分标点「悬挂」至行间。日文字体时与繁、简中字体时会有区别。详见第\ref{sec:lgp}章。
+}
+\feature{hgp}{HanGing Punctuations}{%
+    悬挂标点特性。该特性将部分标点「悬挂」于行末。仅简中、日文字体拥有该特性。
 }
 
 \subsection{私有特性：Dark Features}
@@ -207,12 +210,12 @@
 
 \begin{thebibliography}{99}
     \addcontentsline{toc}{section}{\refname}
-    \bibitem{jlreq} W3C Japanese Layout Task Force~(ed). \newblock Requirements for Japanese Text Layout (W3C Working Group Note), 2011, 2012. \newblock \url{http://www.w3.org/TR/jlreq/}.
-    \bibitem{luatexja-doc} \LuaTeX-jaパッケージ. \newblock \LuaTeX-jaプロジェクトチーム, 2022, 2023.
-    \bibitem{unicode} The Unicode Standard Version 15.0 - Core Specification. \newblock The Unicode Consortium, 2022.
-    \bibitem{tex-by-topic} Victor Eijkhout. \newblock \TeX by Topic, A \TeX nician's Reference, Addison-Wesley, 1992.
-    \bibitem{min10} 乙部厳己・「min10フォントについて」. \newblock \url{http://argent.shinshu-u.ac.jp/~otobe/tex/files/min10.pdf}.
-    \bibitem{ltxjlreq} Noriyuki Abe. \newblock Jlreq Document Class. \newblock \url{https://github.com/abenori/jlreq}.
+    \bibitem{jlreq} W3C Japanese Layout Task Force~(ed). \newblock Requirements for Japanese Text Layout (W3C Working Group Note), 2022, 2023. \newblock \url{https://www.w3.org/TR/jlreq/}.
+    \bibitem{luatexja-doc} \LuaTeX-jaプロジェクトチーム. \newblock \LuaTeX-jaパッケージ, 2022, 2023.
+    \bibitem{unicode} The Unicode Consortium. \newblock The Unicode Standard Version 15.0 - Core Specification, 2022.
+    \bibitem{tex-by-topic} Victor Eijkhout. \newblock \TeX{} by Topic, A \TeX nician's Reference, Addison-Wesley, 1992.
+    \bibitem{min10} 乙部厳己. \newblock min10フォントについて. \newblock \url{http://argent.shinshu-u.ac.jp/~otobe/tex/files/min10.pdf}.
+    \bibitem{ltxjlreq} Noriyuki Abe. \newblock Jlreq Document Class, 2022. \newblock \url{https://github.com/abenori/jlreq}.
 \end{thebibliography}
 
 \section*{程式碼：Implementation}\label{sec:impl}

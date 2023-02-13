@@ -17,3 +17,10 @@ For more datails please see the [documentation](Evagelion-doc.pdf). The English 
 - 2023.2.11 Ver 1.0.0 (a): fixed feature `lgp` and added the documentation.
 
 - 2023.2.7 Ver 1.0.0 (b): the first version.
+
+## Copyright
+This project is under MIT License.
+
+Author: RadioNoiseE.
+
+Contact: j18516785606@icloud.com.
