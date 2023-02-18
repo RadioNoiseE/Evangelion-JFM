@@ -1,5 +1,5 @@
 ---- Evangelion Japanese Font Metric for LuaTeX
----- Current Version: 1.0.0 (b)
+---- Current Version: 1.0.0 (c)
 ---- Dev URL: https://github.com/RadioNoiseE/Evangelion-JFM
 ---- © Copyright 2023, RadioNoiseE
 
@@ -98,7 +98,7 @@ local eva = {
         glue = {
             [0] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = logic_if(std_nil, {-1, 0}, {-1, -2})}, {0.5, 0, 0.25, ratio = 0, priority = logic_if(std_nil, {-1, 0}, {-1, -2})}),
             [1] = logic_if(lang_tc, {0.5, 0, 0.25}, {0.5, 0, 0.25}),
-            [2] = logic_if(lang_tc, {0.5, 0, 0.5}, {0.5, 0, 0.25}),
+            [2] = logic_if(lang_tc, {0.5, 0, 0.25}, {0.5, 0, 0.25}),
             [3] = logic_if(dir_vt, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {0, -1}}, {0.5, 0, 0.25, priority = {0, -1}}), logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {0, -1}})),
             [4] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = logic_if(std_nil, {0, 0}, {0, -2})}, {0.5, 0, 0.25, ratio = 0, priority = logic_if(std_nil, {0, 0}, {0, -2})}),
             [5] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = logic_if(std_nil, {0, 0}, {0, -2})}, {0.5, 0, 0.25, ratio = 0, priority = logic_if(std_nil, {0, 0}, {0, -2})}),

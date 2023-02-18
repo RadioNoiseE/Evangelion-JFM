@@ -1,5 +1,9 @@
 %! TeX Program = LuaLaTeX
 
+\makeatletter
+\def\ltj@stdmcfont{SourceHanSerifSC}
+\makeatother
+
 \documentclass{ltjsarticle}
 %\documentclass[
 %    paper = a4paper,
@@ -78,7 +82,11 @@
 本项目就是一个JFM文件。使用\LuaTeX{}的\texttt{callback}，将简中、繁中、日文及横纵方向、行间标点、悬挂标点、压缩字体等特性集中于\texttt{jfm-eva.lua}单个文件中。用户可按需调用特性来完成高质量的中日排版。
 
 \section{安裝及本地配置：Installation and Local Configs}
-本项目将源文件托管于GitHub平台，暂未上传至Comprehensive \TeX{} Archive Net（CTAN）。用户可使用
+本项目将源文件托管于GitHub平台，且已上传至Comprehensive \TeX{} Archive Net（CTAN）。用户可使用
+\begin{lstlisting}
+    tlmgr install evangelion-jfm
+\end{lstlisting}
+或使用其他包管理器安装。用户也可使用
 \begin{lstlisting}
     mkdir Evangelion-JFM [&&] cd Evangelion-JFM
     git clone https://github.com/RadioNoiseE/Evangelion-JFM
@@ -123,7 +131,7 @@
 \feature{trad}{TRADitional chinese}{%
     繁中特性。当使用繁体中文字体时需调用。与简中、日本语特性的区别源于中置的标点。故，对于全部标点左右插入的伸缩胶的量都与简中、日本语不同。针对句点紧挨闭括号、标点位于句末时等皆有优化。
 }
-\feature{smpl}{SiMPLified}{%
+\feature{smpl}{SiMPLified chinese}{%
     简中特性，使用简体中文字体排版时调用。与日本语、繁中特性区别源于分号及冒号等全部偏靠从而影响其左右插入伸缩胶的量。\textsf{Eva-JFM}对一些（不该出现的）神奇情况（如两个句号同时出现、开括号后出现问号等）进行优化。对问号、感叹号等作了特殊处理。
 }
 

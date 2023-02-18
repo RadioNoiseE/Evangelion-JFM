@@ -11,12 +11,14 @@
 For more datails please see the [documentation](Evagelion-doc.pdf). The English and Japanese documentation is still in progress.
 
 ## 状态 Current Version
-`Ver 1.0.0 (b)`
+`Ver 1.0.0 (c)`
 
 ## 历史 Changelog
-- 2023.2.11 Ver 1.0.0 (a): fixed feature `lgp` and added the documentation.
+- 2023.2.18 Ver 1.0.0 (c): fix bug and updated documentation, uploaded to ctan
 
-- 2023.2.7 Ver 1.0.0 (b): the first version.
+- 2023.2.11 Ver 1.0.0 (b): fixed feature `lgp` and added the documentation.
+
+- 2023.2.7 Ver 1.0.0 (a): the first version.
 
 ## Copyright
 This project is under MIT License.
