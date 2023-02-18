@@ -14,7 +14,7 @@ For more datails please see the [documentation](Evagelion-doc.pdf). The English 
 `Ver 1.0.0 (c)`
 
 ## 历史 Changelog
-- 2023.2.18 Ver 1.0.0 (c): fix bug and updated documentation, uploaded to ctan
+- 2023.2.18 Ver 1.0.0 (c): fix bug and updated documentation, uploaded to ctan, and added feature`hanging punc`.
 
 - 2023.2.11 Ver 1.0.0 (b): fixed feature `lgp` and added the documentation.
 
