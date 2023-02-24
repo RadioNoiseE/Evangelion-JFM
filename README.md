@@ -11,18 +11,20 @@
 For more datails please see the [documentation](Evagelion-doc.pdf). The English and Japanese documentation is still in progress.
 
 ## 状态 Current Version
-`Ver 1.0.0 (c)`
+`Ver 1.0.0 (d)`
 
 ## 历史 Changelog
-- 2023.2.18 Ver 1.0.0 (c): fix bug and updated documentation, uploaded to ctan, and added feature`hanging punc`.
+- 2023.2.24 Ver 1.0.0 (d): more `priority`, revised document.
 
-- 2023.2.11 Ver 1.0.0 (b): fixed feature `lgp` and added the documentation.
+- 2023.2.18 Ver 1.0.0 (c): fix bug and updated documentation, uploaded to ctan, and added feature `hanging punc`.
 
-- 2023.2.7 Ver 1.0.0 (a): the first version.
+- 2023.2.11 Ver 1.0.0 (b): fixed feature `lgp` and added documentation.
+
+- 2023.2.7 Ver 1.0.0 (a): initial version.
 
 ## Copyright
 This project is under MIT License.
 
-Author: RadioNoiseE.
+Author: RadioNoiseE, 黄京.
 
-Contact: j18516785606@icloud.com.
+Email Addr: j18516785606@icloud.com.

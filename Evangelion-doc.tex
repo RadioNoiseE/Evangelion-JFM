@@ -46,7 +46,7 @@
 \hypersetup{
     hidelinks,
     pdftitle = {Evangelion-JFM},
-    pdfauthor = {RadioNoiseE},
+    pdfauthor = {黄京},
     pdfsubject = {TeX},
     pdfkeywords = {Japanese Font Metric},
     pdfstartview = FitV
@@ -62,7 +62,7 @@
 
 \title{\sffamily\bfseries Evangelion Japanese Font Metric for \LuaTeX}
 \author{\large \url{https://github.com/RadioNoiseE/Evangelion-JFM}}
-\date{西历2023年}
+\date{西历2023年\quad{}黄京}
 
 \begin{document}
 \parindent=2\zw\parskip=2pt
@@ -77,7 +77,8 @@
 \section{背景及略介：Background Knowledge and a Rough Introduction}
 \TeX{}是高德纳教授于20世纪末开发的强大排版引擎，能够完全满足西文排版的需求。然因时代局限性\footnote{如没有事实上的统一字符编码等。}以及客观原因\footnote{如中日字符集较大，以及书写方式的不同（纵书、横书），标点等。}对中日排版支持十分有限。为达成中日排版需求，在宏扩展（如\textsf{CJK}等）之外出现了引擎扩展。影响力较大的是\pTeX{}系列。\段
 \pTeX{}系列采用虚拟字体的理念，使用\texttt{TFM/VF}映射TrueType或OpenType字体完成排版。其不支持宏配置字体，也不支持直接生成PDF格式文件。但可以满足日本的传统横纵排版需求（工业标准）。\段
-\pdfTeX{}则是当时另一个\TeX{}的引擎扩展，支持不经DVI格式直接输出PDF格式的文件。然对Unicode（字符编码）及TrueType、OpenType（「现代」矢量字体格式）的支持繁琐或有限。\LuaTeX{}便是基于\pdfTeX{}的引擎扩展，在原生支持Unicode下提供Lua语言扩展（使能够使用\textsf{fontloader}等模块）支持现代字体。宏配置字体特性由\textsf{luaotfload}宏集提供。它也支持直接生成PDF文件。\段
+\pdfTeX{}则是当时另一个\TeX{}的引擎扩展，支持不经DVI格式直接输出PDF格式的文件。然对Unicode（字符编码）及TrueType、OpenType（「现代」矢量字体格式）的支持繁琐或有限。\段
+\LuaTeX{}便是基于\pdfTeX{}的引擎扩展，在原生支持Unicode下提供Lua语言扩展（使能够使用\textsf{fontloader}等模块）支持现代字体。宏配置字体特性由\textsf{luaotfload}宏集提供。它也支持直接生成PDF文件。\段
 \LuaTeX{}-ja可看作是对两者的合并。这是一个由日本开发者北川弘典首倡的\LuaTeX{}下的日文支持项目，即将\pTeX{}（大部分）移植到\LuaTeX{}下。由于\LuaTeX{}支持宏配置字体，故不需要\texttt{VF}文件为字体提供映射，但为标点挤压等需求保留并扩展\footnote{如优先挤压（\texttt{priority}）特性，及一些特殊字符（如\texttt{parbdd}、\texttt{glue}）等。}了JFM文件。\段
 本项目就是一个JFM文件。使用\LuaTeX{}的\texttt{callback}，将简中、繁中、日文及横纵方向、行间标点、悬挂标点、压缩字体等特性集中于\texttt{jfm-eva.lua}单个文件中。用户可按需调用特性来完成高质量的中日排版。
 
@@ -175,7 +176,7 @@
     \caption{行间标点特性示意图}\label{fig:lgp}
 \end{figure}
 
-标点悬挂的位置有以下考量，可参照图\ref{fig:lgp}。若有特殊需求请看第\ref{sec:config}节。优先级由上至下。
+标点悬挂的位置有以下考量，可参照图\ref{fig:lgp}~。若有特殊需求请看第\ref{sec:config}节。优先级由上至下。
 \begin{itemize}
     \item 三种字体风格统一，位置原则上一致（故，繁中字体也悬挂于右下、而非居中）；
     \item 不同标点中的相同（似）元素位置相同；
@@ -194,7 +195,7 @@
     [101,2] ==> [1]; [201,2] ==> [2]; [301,2] ==> [3].
 \end{lstlisting}
 只需调整其中\texttt{left}和\texttt{down}键的值即可。其中\texttt{left}为向右移动，\texttt{down}为向下移动。
-具体可参照第\ref{sec:impl}章。
+具体可参照终章。
 
 \subsubsection{使用外掛符號字體：Using Seperate Punctuation Font}
 该方法的原理就是使用特殊的仅包含（标点）符号的字体来替换原有字体中的标点符号，从而稳定其表现。符号字体可使用\url{https://github.com/Buernia/Zhudou-Sans}处的开源字体。其基于思源黑体，还添加了许多其他符号（但这里我们只会用到六个符号）及标点挤压等特性。\段
@@ -210,8 +211,9 @@
         }
     ]{§\meta{main font}§}
 \end{lstlisting}
-其中首个\meta{language}可选填\texttt{Japanese}、\texttt{Chinese Traditional}或\texttt{Chinese Simplified}，第二个则填语言特性分区的对应\texttt{jp}、\texttt{trad}及\texttt{smpl}特性。\meta{utf-8 code}则为需要替换的标点符号的Unicode编码，如需替换句号（ideographic full stop，\texttt{U+3002}）则填\texttt{3002}\footnote{编码可至\url{https://www.unicode.org/charts/unihanrsindex.html}查询。}即可。
-\meta{symbol font}以及\meta{main font}填符号字体名称、正文字体名称即可。具体语法及示例可看\cite{luatexja-doc}。
+其中首个\meta{language}可选填\texttt{Japanese}、\texttt{Chinese Traditional}或\texttt{Chinese Simplified}，第二个则填语言特性分区的对应\texttt{jp}、\texttt{trad}及\texttt{smpl}特性。\meta{utf-8 code}则为需要替换的标点符号的Unicode编码，如需替换句号（ideographic full stop，\texttt{U+3002}）则填\texttt{3002}\footnote{编码可至\url{https://www.unicode.org/charts/unihanrsindex.html}查询。}。
+\meta{symbol font}以及\meta{main font}填符号字体名称、正文字体名称即可。\段
+具体语法及示例可看\LuaTeX-ja文档\cite{luatexja-doc}。
 
 \section{启發：Inspiration}
 \textsf{Eva-JFM}的内部分组受\texttt{min10.tfm} \cite{min10}的启发，支持的\texttt{priority}特性则取自阿部紀行氏的\texttt{jlreq.lua} \cite{ltxjlreq}文件。其余可见参考文献。

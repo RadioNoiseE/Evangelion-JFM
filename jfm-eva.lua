@@ -1,5 +1,5 @@
 ---- Evangelion Japanese Font Metric for LuaTeX
----- Current Version: 1.0.0 (c)
+---- Current Version: 1.0.0 (d)
 ---- Dev URL: https://github.com/RadioNoiseE/Evangelion-JFM
 ---- © Copyright 2023, RadioNoiseE
 
@@ -77,9 +77,9 @@ local eva = {
         down = 0,
         align = 'middle',
         glue = {
-            [1] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1, priority = logic_if(std_nil, {-1, 0}, {-1, -2})}, {}),
-            [2] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1, priority = logic_if(std_nil, {-1, -2}, {-1, 0})}, {}),
-            [3] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1, priority = {-1, -1}}, {priority = {0, -1}})),
+            [1] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1, priority = logic_if(std_nil, {-1, 0}, {-1, -2})}, {priority = logic_if(std_nil, {-1, 0}, {-1, -2})}),
+            [2] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1, priority = logic_if(std_nil, {-1, -2}, {-1, 0})}, {priority = logic_if(std_nil, {-1, -2}, {-1, 0})}),
+            [3] = logic_if(dir_vt, {priority = {0, -1}}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1, priority = {-1, -1}}, {priority = {-1, -1}})),
             [7] = {0.5, 0, 0.25, ratio = 1, priority = {-1, -2}},
             [9] = {0.25, 0, 0.125, ratio = 1, priority = {-1, -1}}
         },
@@ -188,14 +188,14 @@ local eva = {
         down = 0,
         align = logic_if(lang_tc, 'middle', 'left'),
         glue = {
-            [0] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {-1, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {-1, -1}})),
+            [0] = logic_if(dir_vt, {priority = {-1, -1}}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {-1, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {-1, -1}})),
             [1] = logic_if(dir_vt, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1, priority = {0, -1}}, {priority = {0, -1}}), logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {0, -1}})),
             [2] = logic_if(dir_vt, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1, priority = {0, -1}}, {priority = {0, -1}}), logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {0, -1}})),
-            [3] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {0, -1}})),
-            [4] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {0, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {0, -1}})),
-            [5] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {0, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {0, -1}})),
-            [6] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {-1, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {-1, -1}})),
-            [7] = logic_if(dir_vt, {}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {-1, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {-1, -1}})),
+            [3] = logic_if(dir_vt, {priority = {0, -1}}, logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {0, -1}})),
+            [4] = logic_if(dir_vt, {priority = {0, -1}}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {0, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {0, -1}})),
+            [5] = logic_if(dir_vt, {priority = {0, -1}}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {0, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {0, -1}})),
+            [6] = logic_if(dir_vt, {priority = {-1, -1}}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {-1, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {-1, -1}})),
+            [7] = logic_if(dir_vt, {priority = {-1, -1}}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {-1, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {-1, -1}})),
             [8] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0, priority = {0, -1}}, {0.5, 0, 0.25, ratio = 0, priority = {0, -1}}),
             [9] = logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.75, 0, 0.25, ratio = 1/3, priority = {0, -1}})
         }
@@ -319,7 +319,7 @@ local eva = {
             [0] = {0.5, 0, 0.25, ratio = 0, priority = {-1, -2}},
             [1] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1}, {}),
             [2] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1}, {}),
-            [3] = logic_if(lang_sc, {}, {0.25, 0, 0.125, ratio = 1, priority = {0, -1}}),
+            [3] = logic_if(lang_sc, {priority = {0, -1}}, {0.25, 0, 0.125, ratio = 1, priority = {0, -1}}),
             [4] = {0.5, 0, 0.25, ratio = 0, priority = {0, -2}},
             [5] = {0.5, 0, 0.25, ratio = 0, priority = {0, -2}},
             [6] = {0.5, 0, 0.25, ratio = 0, priroity = {-1, -2}},
