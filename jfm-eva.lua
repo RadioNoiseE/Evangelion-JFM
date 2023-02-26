@@ -1,11 +1,11 @@
 ---- Evangelion Japanese Font Metric for LuaTeX
----- Current Version: 1.0.0 (d)
+---- Current Version: 1.0.1 (a)
 ---- Dev URL: https://github.com/RadioNoiseE/Evangelion-JFM
 ---- © Copyright 2023, RadioNoiseE
 
 
 -- 初始化
-local lang_jp, lang_tc, lang_sc, dir_vt, font_extd, punc_lg, punc_hg, std_nil
+local lang_jp, lang_tc, lang_sc, dir_vt, font_extd, punc_lg, punc_hg, std_nil, al_hw, al_fw
 
 if luatexja.jfont.jfm_feature then 
     lang_jp = luatexja.jfont.jfm_feature.jp
@@ -16,6 +16,8 @@ if luatexja.jfont.jfm_feature then
     punc_lg = luatexja.jfont.jfm_feature.lgp
     punc_hg = luatexja.jfont.jfm_feature.hgp
     std_nil = luatexja.jfont.jfm_feature.nstd
+    al_hw = luatexja.jfont.jfm_feature.hwid
+    al_fw = luatexja.jfont.jfm_feature.fwid
 end
 
 -- 預處理及容錯
@@ -29,6 +31,10 @@ if punc_lg == true and dir_vt == false then
               'For now I\'ll ignore it.')
 end
 
+if al_hw == true and al_fw == true then
+    tex.error('JFM feature "hwid" cannot be used with "fwid".')
+end
+
 if not ((lang_jp and not (lang_tc or lang_sc)) or
     (lang_tc and not (lang_jp or lang_sc)) or
     (lang_sc and not (lang_jp or lang_tc))) then
@@ -36,6 +42,11 @@ if not ((lang_jp and not (lang_tc or lang_sc)) or
               '"jp", "trad" or "smpl"\n' ..
               'is required.\n' ..
               'For now I\'ll use "lang_jp" for japanese by default.')
+end
+
+-- 壓縮比例設定
+if font_extd == true then
+    local extd_ratio = (type(luatexja.jfont.jfm_feature and font_extd) == 'string') and tonumber(font_extd) or 1.25
 end
 
 -- 定義函數宏
@@ -50,12 +61,12 @@ local function logic_if(f1, r1, r2)
 end
 
 local function context_height()
-    local rth = dir_vt and (font_extd and 0.625 or 0.5) or 0.88
+    local rth = dir_vt and (font_extd and extd_ratio/2 or 0.5) or 0.88
     return rth
 end
 
 local function context_depth()
-    local rtd = dir_vt and (font_extd and 0.625 or 0.5) or 0.12
+    local rtd = dir_vt and (font_extd and extd_ratio/2 or 0.5) or 0.12
     return rtd
 end
 
@@ -66,7 +77,7 @@ local eva = {
     zw = 1,
     zh = logic_anif(dir_vt, font_extd, 1.25, 1),
     kanjiskip = {0, 0.25, 0},
-    xkanjiskip = {0.25, 0.25, 0.125},
+    xkanjiskip = {0.25, 0.125, 0.125},
 
     [0] = { -- 缺省類
         width = 1,
@@ -352,16 +363,38 @@ local eva = {
         }
     },
 
-    [10] = { -- 行頭
-        chars = {'boxbdd', 'parbdd'},
-        glue = {
-            [7] = {0, 0, 0}
-        }
-    },
-
-    [11] = { -- 伸縮膠
-        chars = {'glue'}
+    [10] = { -- 西文
+        chars = {},
+        width = 0,
+        height = context_height(),
+        depth = context_depth(),
+        italic = 0,
+        left = 0,
+        down = 0,
+        align = 'middle',
+        glue = {}
     }
 }    
+
+if al_hw == true or al_fw == true then
+    eva[10].chars = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+                     'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+                     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+                     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'}
+    eva[10].glue = table.fastcopy(eva[0].glue)
+    eva[10].glue[0] = {0.25, 0.125, 0.125, ratio = 0, priority = {0, -1}}
+    eva[0].glue[10] = {0.25, 0.125, 0.125, ratio = 1, priority = {0, -1}}
+    for _, catnum in ipairs({1, 2, 3, 5, 8, 9}) do
+        eva[catnum].glue[10] = table.fastcopy(eva[catnum].glue[0])
+    end
+end
+
+if al_hw == true and al_fw == false then
+    eva[10].width = 0.5
+end
+
+if al_fw == false and al_fw == true then
+    eva[10].width = 1
+end
 
 luatexja.jfont.define_jfm(eva)
