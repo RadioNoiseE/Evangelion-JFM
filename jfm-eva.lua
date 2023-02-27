@@ -373,6 +373,13 @@ local eva = {
         down = 0,
         align = 'middle',
         glue = {}
+    },
+
+    [11] = { -- 行頭
+        chars = {'parbdd', 'boxbdd'},
+        glue = {
+            [7] = {0, 0, 0}
+        }
     }
 }    
 

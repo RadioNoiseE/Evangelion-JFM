@@ -11,9 +11,11 @@
 For more datails please see the [documentation](Evagelion-doc.pdf). The English and Japanese documentation is still in progress.
 
 ## 状态 Current Version
-`Ver 1.0.1 (c)`
+`Ver 1.0.1 (d)`
 
 ## 历史 Changelog
+- 2023.2.27 Ver 1.0.1 (d): fix 'parbdd' and 'boxbdd'
+
 - 2023.2.26 Ver 1.0.1 (c): users can now customize ratio for `extd` feature.
 
 - 2023.2.26 Ver 1.0.1 (b): docstrip, updated documentation.
