@@ -1,5 +1,5 @@
 ---- Evangelion Japanese Font Metric for LuaTeX
----- Current Version: 1.0.1 (c)
+---- Current Version: 1.0.1 (e)
 ---- Dev URL: https://github.com/RadioNoiseE/Evangelion-JFM
 ---- © Copyright 2023, RadioNoiseE
 
@@ -75,7 +75,7 @@ local eva = {
     version = 3,
     dir = logic_if(dir_vt, 'tate', 'yoko'),
     zw = 1,
-    zh = logic_anif(dir_vt, font_extd, 1.25, 1),
+    zh = logic_anif(dir_vt, font_extd, extd_ratio, 1),
     kanjiskip = {0, 0.25, 0},
     xkanjiskip = {0.25, 0.125, 0.125},
 
