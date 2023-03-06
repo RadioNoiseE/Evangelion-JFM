@@ -1,5 +1,5 @@
 ---- Evangelion Japanese Font Metric for LuaTeX
----- Current Version: 1.0.1 (e)
+---- Current Version: 1.0.1 (f)
 ---- Dev URL: https://github.com/RadioNoiseE/Evangelion-JFM
 ---- © Copyright 2023, RadioNoiseE
 
@@ -48,6 +48,9 @@ end
 if font_extd == true then
     local extd_ratio = (type(luatexja.jfont.jfm_feature and font_extd) == 'string') and tonumber(font_extd) or 1.25
 end
+
+-- 行間標點字間距補足
+local lgp_kanjiskip = {kanjiskip_natural = 0, kanjiskip_stretch = 1, kanjiskip_shrink = 1}
 
 -- 定義函數宏
 local function logic_anif(f1, f2, r1, r2)
@@ -129,7 +132,10 @@ local eva = {
         italic = 0,
         left = 0.38,
         down = -0.34,
-        align = 'left'
+        align = 'left',
+        glue = {
+            [0] = lgp_kanjiskip
+        }
     },
 
     [102] = { -- 読点類（行間b）
@@ -140,7 +146,10 @@ local eva = {
         italic = 0,
         left = logic_if(lang_tc, 0.62, 0.40),
         down = logic_if(lang_tc, -0.58, -0.26),
-        align = 'left'
+        align = 'left',
+        glue = {
+            [0] = lgp_kanjiskip
+        }
     },
 
     [2] = { -- 句點類
@@ -175,7 +184,10 @@ local eva = {
         italic = 0,
         left = logic_if(lang_tc, 0.68, 0.34),
         down = logic_if(lang_tc, -0.58, -0.28),
-        align = 'left'
+        align = 'left',
+        glue = {
+            [0] = lgp_kanjiskip
+        }
     },
 
     [202] = { -- 句點類（行間b）
@@ -186,7 +198,10 @@ local eva = {
         italic = 0,
         left = 0.42,
         down = -0.35,
-        align = 'left'
+        align = 'left',
+        glue = {
+            [0] = lgp_kanjiskip
+        }
     },
 
     [3] = { -- 兩點類
@@ -220,7 +235,10 @@ local eva = {
         italic = 0,
         left = logic_if(lang_tc, 0.94, 0.72),
         down = logic_if(lang_tc, -0.58, -0.34),
-        align = 'left'
+        align = 'left',
+        glue = {
+            [0] = lgp_kanjiskip
+        }
     },
 
     [302] = { -- 兩點類（行間b）
@@ -231,7 +249,10 @@ local eva = {
         italic = 0,
         left = logic_if(lang_tc, 0.96, 0.78),
         down = logic_if(lang_tc, -0.58, -0.34),
-        align = 'left'
+        align = 'left',
+        glue = {
+            [0] = lgp_kanjiskip
+        }
     },
 
     [4] = { -- 小書きの仮名類

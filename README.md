@@ -11,9 +11,11 @@
 For more datails please see the [documentation](Evagelion-doc.pdf). The English and Japanese documentation is still in progress.
 
 ## 状态 Current Version
-`Ver 1.0.1 (e)`
+`Ver 1.0.1 (f)`
 
 ## 历史 Changelog
+- 2023.3.6 Ver 1.0.1(f): adjust kanjiskip after `lgp`
+
 - 2023.3.3 Ver 1.0.1 (e): fix `extd_ratio`
 
 - 2023.2.27 Ver 1.0.1 (d): fix `parbdd` and `boxbdd`
