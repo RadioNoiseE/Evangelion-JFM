@@ -80,10 +80,12 @@
 %<sc>\parindent=2\zw\parskip=2pt
 %<en>\parindent=12pt\parskip=2pt
 \maketitle
+
 \begin{abstract}
 %<sc>    本文档将介绍名为Evangelion Japanese Font Metric（下简称为``\textsf{Eva-JFM}''）的JFM文件。其适用于简体中文（以下简称为「简中」）、繁体中文（以下简称为「繁中」）及日文字体的横直排。旨在提供一个充分利用\LuaTeX{}-ja的\texttt{priority}特性，基于标准\cite{jlreq}的同时，支持一些罕用特性的JFM文件。文档暂使用中文及西文撰写。
 %<en>    This documentation is going to introduce Evangelion Japanese Font Metric (hereinafter referred to as ``Eva-JFM''), a Japanese Font Metric for typesetting high quality Chinese and Japanese documents. It can be used with Traditional Chinese, Simplified Chinese and Japanese fonts for both vertically and horizontally typesetted texts. It aims to provide a font metric which makes full use of the \texttt{priority} feature (provided by \textsf{\LuaTeX-ja}), basing on standard~\cite{jlreq}, and supports some rarely-used features. The documentation is now written in both Chinese and English.
 \end{abstract}
+
 %<sc>\section{背景及略介}
 %<en>\section{Background Information and a Rough Introduction}
 %<sc>\TeX{}是高德纳教授于20世纪末开发的强大排版引擎，能够完全满足西文排版的需求。然因时代局限性\footnote{如没有事实上的统一字符编码等。}以及客观原因\footnote{如中日字符集较大，以及书写方式的不同（纵书、横书），标点等。}对中日排版支持十分有限。为达成中日排版需求，在宏扩展（如\textsf{CJK}等）之外出现了引擎扩展。影响力较大的是\pTeX{}系列。\段
@@ -157,11 +159,13 @@
 %<en>or with the NFSS.\par
 %<sc>其他情况下设置JFM及其更多信息请看\LuaTeX-ja文档\cite{luatexja-doc}。
 %<en>To set up JFM in other cases, please refer to the \LuaTeX-ja document~\cite{luatexja-doc}.
+
 %<sc>\section{支持特性}
 %<en>\section{Supported Features}
 \label{sec:feat}
 %<sc>本章节将介绍\textsf{Eva-JFM}的所有特性，分别为：语言特性、方向特性、扩展特性、西文特性及私有特性。
 %<en>This section is going to give you a glance about all the features embedded in \textsf{Eva-JFM}. They are divided into 5 groups, they are Language Features, Direction Features, Extended Features, English Features and Dark Features respectively.
+
 %<sc>\subsection{語言特性}
 %<en>\subsection{Language Features}
 %<sc>本区特性必填且只可填一个。不然则会报错。\段
@@ -178,6 +182,7 @@
 %<sc>    简中特性，使用简体中文字体排版时调用。与日本语、繁中特性区别源于分号及冒号等全部偏靠从而影响其左右插入伸缩胶的量。\textsf{Eva-JFM}对一些（不该出现的）神奇情况（如两个句号同时出现、开括号后出现问号等）进行优化。对问号、感叹号等作了特殊处理。
 %<en>    Simplified Chinese feature, for Simplified Chinese fonts. All the punctuations are laid down and placed aside. Therefore its position is also treated with care. \textsf{Eva-JFM} also takes some rare conditions into consideration. Note that the \textit{aki} after Question Mark and Exclamation Mark is different from that of the Japanese feature.
 }
+
 %<sc>\subsection{方向特性}
 %<en>\subsection{Direction Features}
 %<sc>本分区特性与全部其他特性兼容，可同时调用。\段
@@ -186,13 +191,14 @@
 %<sc>    直书特性。对标点挤压、分组有影响。直书时必须调用。
 %<en>    Vertical Typesetting feature. It affects kerning, internal grouping, etc. You should specify this when typeseting vertically.
 }
+
 %<sc>\subsection{擴展特性}
 %<en>\subsection{Extended Features}
 %<sc>本区特性\texttt{hgp}不依赖\texttt{vert}特性，其余需同\texttt{vert}特性同时调用。否则报错。\段
 %<en>Except the feature \texttt{hgp} doesn't rely on feature \texttt{vert}, all the other features need \texttt{vert} to work (since they should only be needed in vertical texts).
 \feature{extd}{EXTenDed font}{%
 %<sc>    压缩字体特性。默认为横比纵为100比80的字体压缩\footnotemark{}。可用\texttt{extd=\meta{ratio}}设置横方向拉伸比例（默认即为\texttt{1.25}。需同\texttt{extend}（\textsf{luaotfload}）或\texttt{FakeStretch}（\textsf{fontspec}）同时使用。
-%<en>    Extended font features. The dafault ratio is $x:y=100:80$ while $x$ is the width and $y$ is the height. You can customize it using \textt{extd=\meta{ratio}} (the dafault \meta{ratio} is $1.25$). It should be used with \texttt{extend} (\textsf{luaotfload}) or \texttt{FakeStretch} (\textsf{fontspec}).
+%<en>    Extended font features. The dafault ratio is $x:y=100:80$ while $x$ is the width and $y$ is the height. You can customize it using \texttt{extd=\meta{ratio}} (the dafault \meta{ratio} is $1.25$). It should be used with \texttt{extend} (\textsf{luaotfload}) or \texttt{FakeStretch} (\textsf{fontspec}).
 }
 %<sc>\footnotetext{日本新闻字体，如每日新闻明朝体。}
 \feature{lgp}{LineGap Punctuations}{%
@@ -203,31 +209,44 @@
 %<sc>    悬挂标点特性。该特性将部分标点「悬挂」于行末。仅简中、日文字体拥有该特性。
 %<en>    Hanging punctuation feature which ``hangs'' some punctuation at line-end (allowing them to stick out a bit). Traditional Chinese fonts doesn't support this feature for some reasons.
 }
+
 %<sc>\subsection{西文特性}
 %<en>\subsection{English Features}
 %<sc>本区特性使用时需先使用\texttt{\string\ltjsetparameter}设置\texttt{jacharrange}从而调整JAchar的范围。同时推荐与对应OpenType特性同时使用。\段
+%<en>You need to set the JAchar range using \texttt{\string\ltjsetparameter} before using features in this section. It's also recommended to use with the corresponding OpenType features at the same time.\par
 \feature{hwid}{Half WIDth}{%
 %<sc>    半宽西文特性。使用此特性（且按上述设置完成后）西文字母排布为严格半宽。本特性不会压缩或拉伸西文字母，故当未使用对应半宽字体特性时，只会简单的重叠，此时不推荐使用。同时也将失去所有kern以及italic correction的数据，同时忽略\texttt{xkanjiskip}参数。请务必谨慎调用。
+%<en>    Half width English characters feature. This will place each alphabets into a box which width is exactly $0.5$ times the CJ character's width. It's worth noting that it will not stretch or shrink the glyph, it only adjusts the spacing. Hence if the OpenType feature \texttt{hwid} is not set, English characters will simply overlap. All the kernings and italic corrections will also be lost (this may be fixed in the future versions), and will ignore the parameter \texttt{xkanjiskip}. Please use with care.
 }
 \feature{fwid}{Full WIDth}{%
 %<sc>    全宽西文特性。描述同上。但，若不调用全宽特性，西文间距会被简单撑开。
+%<en>    Full width English characters feature. It's similar from \texttt{hwid} above except that the spacing will be stretched out on the contrary.
 }
+
 %<sc>\subsection{私有特性}
 %<en>\subsection{Dark Features}
 %<sc>使用本区特性前请先确保你清楚地知道你在做什么。\段
+%<en>Before using the following features, please make sure that you have carefully read the descriptions.\par
 \feature{nstd}{Non STandarD}{%
 %<sc>    忽略标准特性。字体排印标准\cite{jlreq}认为逗号的压缩权重应比句号要低。本特性将句号的压缩优先级与逗号交换，使逗号被优先压缩\footnotemark{}。仅在使用\textsf{luatexja-adjust}宏集时有效。
+%<en>    This one ignores the standard priority rules for punctuation kerning. While \cite{jlreq} suggests that the priority for the period should be higher than the comma (which means the period is easier to stretch), this makes the comma's priority higher than the preiod's. Only works with \textsf{luatexja-adjust}'s priority feature enabled (set to \texttt{true}).
 }
 %<sc>\footnotetext{考虑逗号、句号在文字系统中占的重量，以及「开明」压缩风格。}
+
 %<sc>\section{行間標點特性}
 %<en>\section{Linegap Punctuation Feature}
 \label{sec:lgp}
 %<sc>本章节将提供更多详细的关于行间标点特性的信息，以及可能出现的问题及其解决方案。
+%<en>Here more detailed information about linegap punctuations are provided, as well as the issue may occurs and the possible solution.
 %<sc>\subsection{關於「懸掛」}
 %<en>\subsection{About ``Hanging''}
 %<sc>行间标点可见于古籍之中，是将标点符号与直书结合妥协的产物。\段
+%<en>Linegap punctuations can be seen in Chinese ancient books, it's a combination of the punctuations marks and the traditional vertical typesetting method.\par
 %<sc>传统上悬挂句号与逗号。而\textsf{Eva-JFM}特性在繁中、简中特性下会悬挂句号、逗号、顿号、冒号及分号，日文字体下则不悬挂冒号及分号。原因在于日本习惯上将冒号与分号看作「中点类」，直书时横置处理。\段
+%<en>Periods and commas should be hanged but \textsf{Eva-JFM} hangs three punctuations in addition. Japanese font is different however, since the direction of colon and semicolon makes it impossible to hang.\par
 %<sc>本JFM将全部标点悬挂于字体右下位置。详见下一节。
+%<en>They are all hanged to the lower right of the glyph. See the next section for more details and considerations.
+
 %<sc>\subsection{懸掛的位置}
 %<en>\subsection{Hanging Position}
 \begin{figure}[htb]
