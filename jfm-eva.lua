@@ -1,7 +1,7 @@
 ---- Evangelion Japanese Font Metric for LuaTeX
----- Current Version: 1.0.2 (b)
+---- Current Version: 1.0.2 (e)
 ---- Dev URL: https://github.com/RadioNoiseE/Evangelion-JFM
----- © Copyright 2023, RadioNoiseE
+---- Copyright 2023, RadioNoiseE ©
 
 
 -- 初始化
@@ -46,7 +46,7 @@ end
 
 -- 壓縮比例設定
 if font_extd == true then
-    local extd_ratio = (type(luatexja.jfont.jfm_feature and font_extd) == 'string') and tonumber(font_extd) or 1.25
+    local extd_ratio = (type(font_extd) == 'string') and tonumber(font_extd) or 1.25
 end
 
 -- 行間標點字間距補足
@@ -121,7 +121,7 @@ local eva = {
             [8] = logic_if(lang_tc, {0.25, 0, 0.125}, {}),
             [9] = logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.75, 0, 0.25, ratio = 1/3, priority = {0, -1}})
         },
-        end_adjust = logic_if(lang_tc, {0.25, 0}, logic_if(punc_hg, {-0.5, 0}, {0, 0}))
+        end_adjust = logic_if(lang_tc, {0.25, 0}, logic_if(punc_hg, {-0.5, 0.5, 0}, {0, 0}))
     },
 
     [101] = { -- 読点類（行間a）
@@ -173,7 +173,7 @@ local eva = {
             [8] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 0}, {}),
             [9] = logic_if(lang_tc, {0.5, 0, 0.25, priority = {0, -1}}, {0.75, 0, 0.25, ratio = 1/3, priority = {0, -1}})
         },
-        end_adjust = logic_if(lang_tc, {0.25, 0}, logic_if(punc_hg, {-0.5, 0}, {0, 0}))
+        end_adjust = logic_if(lang_tc, {0.25, 0}, logic_if(punc_hg, {-0.5, 0.5, 0}, {0, 0}))
     },
 
     [201] = { -- 句點類（行間a）
@@ -381,7 +381,8 @@ local eva = {
             [7] = {0.25, 0, 0.125, ratio = 0, priority = {-1, -1}},
             [8] = {0.25, 0, 0.125, ratio = 0, priority = {0, -1}},
             [9] = {0.5, 0, 0.25, priority = {0, -1}}
-        }
+        },
+        end_adjust = {0.25, 0}
     },
 
     [10] = { -- 西文
