@@ -29,13 +29,12 @@
 %</sc>
 %<sc>\documentclass[twoside]{ltjsarticle}
 %<en>\documentclass[twoside]{article}
-%<en>\protrudechars=2
 %<en>\usepackage[margin=1.2in]{geometry}
 \usepackage{graphicx}
 %<sc>\usepackage[match]{luatexja-fontspec}
-%<en>\usepackage{fontspec, luatexja}
+%<en>\usepackage{fontspec, luatexja, microtype}
 \setmainfont{Linux Libertine O}
-%<sc>\setmainjfont{Source Han Serif SC}[Language = Chinese Simplified, YokoFeatures = {JFM = eva/{smpl, nstd}}]
+%<sc>\setmainjfont{Source Han Serif SC}[Language = Chinese Simplified, YokoFeatures = {JFM = eva/{smpl, nstd, hgp}}]
 \setsansfont{Linux Biolinum O}
 \setmonofont[Scale = MatchLowercase, FakeStretch = 1.137121]{Iosevka Slab}
 %<*sc>
@@ -213,7 +212,11 @@
 
 %<sc>\subsection{西文特性}
 %<en>\subsection{English Features}
-%<sc>本区特性使用时需先使用\texttt{\string\ltjsetparameter}设置\texttt{jacharrange}从而调整JAchar的范围。同时推荐与对应OpenType特性同时使用。\段
+%<sc>本区特性使用时需先使用\texttt{\string\ltjsetparameter}设置\texttt{jacharrange}从而调整JAchar的范围。
+\begin{lstlisting}
+    \ltjsetparameter{jacharrange={-1, +2, +3, -4, -5, +6, +7, -8, +9}}
+\end{lstlisting}
+同时推荐与对应OpenType特性同时使用。\段
 %<en>You need to set the JAchar range using \texttt{\string\ltjsetparameter} before using features in this section. It's also recommended to use with the corresponding OpenType features.\par
 \feature{hwid}{Half WIDth}{%
 %<sc>    半宽西文特性。使用此特性（且按上述设置完成后）西文字母排布为严格半宽。本特性不会压缩或拉伸西文字母，故当未使用对应半宽字体特性时，只会简单的重叠，此时不推荐使用。同时也将失去所有kern以及italic correction的数据，同时忽略\texttt{xkanjiskip}参数。请务必谨慎调用。

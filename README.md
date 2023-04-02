@@ -4,11 +4,17 @@
 
 `Eva-JFM`是一个为在LuaTeX-ja下使用行间标点、压缩字体等特性设计的JFM文件。其可用于简中、繁中、日文字体，充分利用priority特性（数据来源jlreq），支持直书，同时为繁体字体进行优化（如行末、与直角引号之间等）。
 
-详细请看[文档](Evangelion-doc.pdf)。
+详细请看[简体中文文档](Eva-JFM_doc-sc.pdf)。
+
+本项目已上传至[CTAN](https://www.ctan.org/pkg/evangelion-jfm)。
 
 `Eva-JFM` is a JFM file which aims to support 'linegap puncutations', 'scaled font' and more features under LuaTeX-ja. It can be used with Traditional Chinese, Simplified Chinese and Japanese fonts, supporting vertical typesetting, making full-use of the `priority` feature, and added special support for Traditional Chinese font. It's based on jlreq, and insipered by `min10.tfm`. All its nine features are embeded into single file `jfm-eva.lua` to simplify the using.
 
-For more datails please see the [documentation](Evagelion-doc.pdf). The English and Japanese documentation is still in progress.
+For more datails please see the [English documentation](Eva-JFM_doc-en.pdf). 
+
+The Japanese documentation is still in progress.
+
+This package is also available on [CTAN](https://www.ctan.org/pkg/evangelion-jfm).
 
 ## 支持特性 Supported Features
 
@@ -32,9 +38,11 @@ For more datails please see the [documentation](Evagelion-doc.pdf). The English 
 
 ## 状态 Current Version
 
-`Ver 1.0.2 (f)`
+`Ver 1.0.2 (g)`
 
 ## 历史 Changelog
+
+- 2023.4.2 Ver 1.0.2 (g): typeset English document and revised both.
 
 - 2023.3.19 Ver 1.0.2 (f): fix `extd_ratio` and add `end_adjust` for midp.
 
