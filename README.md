@@ -38,9 +38,10 @@ This package is also available on [CTAN](https://www.ctan.org/pkg/evangelion-jfm
 
 ## 状态 Current Version
 
-`Ver 1.0.2 (h)`
+`Ver 1.0.3 (a)`
 
 ## 历史 Changelog
+- 2023.4.24 Ver 1.0.3 (a): the Japanese documentation (ini).
 
 - 2023.4.15 Ver 1.0.2 (h): revised English doc and add reference.
 
