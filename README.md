@@ -1,6 +1,6 @@
 # Evangelion Japanese Font Metric
 
-## 简介  Some Information
+## 简介・簡単な紹介・Some Information
 
 `Eva-JFM`是一个为在LuaTeX-ja下使用行间标点、压缩字体等特性设计的JFM文件。其可用于简中、繁中、日文字体，充分利用priority特性（数据来源jlreq），支持直书，同时为繁体字体进行优化（如行末、与直角引号之间等）。
 
@@ -8,39 +8,48 @@
 
 本项目已上传至[CTAN](https://www.ctan.org/pkg/evangelion-jfm)。
 
-`Eva-JFM` is a JFM file which aims to support 'linegap puncutations', 'scaled font' and more features under LuaTeX-ja. It can be used with Traditional Chinese, Simplified Chinese and Japanese fonts, supporting vertical typesetting, making full-use of the `priority` feature, and added special support for Traditional Chinese font. It's based on jlreq, and insipered by `min10.tfm`. All its nine features are embeded into single file `jfm-eva.lua` to simplify the using.
+このメトリッ クは、縦書きと横書きの両方のテキストに対して、従来の中国語、簡体字中国語、および日本語のフォント とともに使用できます。これは、LuaTeX-jaで提供される優先機能を最大限に活用するフォントメトリックを提供し、標準に基づき、一部の高度な(すなわち、めったに使用されない)機能をサポートすること を目的としています。
+
+より多くの情報は[ドキュメント](Eva-JFM_doc-jp.pdf)を見てください。
+
+それは[CTAN](https://www.ctan.oeg/pkg/evangelion-jfm)にアップロードされました。
+
+`Eva-JFM` is a JFM file which aims to support 'linegap puncutations', 'scaled font' and more features under LuaTeX-ja. It can be used with Traditional Chinese, Simplified Chinese and Japanese fonts, supporting vertical typesetting, making full-use of the `priority` feature, and added special support for Traditional Chinese font. It's based on jlreq, and insipered by `min10.tfm`. All its nine features are embeded into one single file `jfm-eva.lua` to simplify the using.
 
 For more datails please see the [English documentation](Eva-JFM_doc-en.pdf). 
 
-The Japanese documentation is still in progress.
-
 This package is also available on [CTAN](https://www.ctan.org/pkg/evangelion-jfm).
 
-## 支持特性 Supported Features
+## 支持特性・サポート機能・Supported Features
 
-- 行间标点 Linegap Punctuations
+- 行间标点 行間句読点 Linegap Punctuations
 
-- 标点悬挂 Hanging Punctuations
+- 标点悬挂 ぶら下げ Hanging Punctuations
 
-- 简体中文 Simplified Chinese
+- 简体中文 簡体字中國語 Simplified Chinese
 
-- 繁体中文 Traditional Chinese
+- 繁体中文 繁体字中国語 Traditional Chinese
 
-- 日本语 Japanese
+- 日本语 日本語 Japanese
 
-- 直书 Vertical Typesetting
+- 直书 縱組 Vertical Typesetting
 
-- 半宽西文 Half-width Alphabets
+- 半宽西文 半角歐文 Half-width Alphabets
 
-- 全宽西文 Full-width Alphabets
+- 全宽西文 全角歐文 Full-width Alphabets
 
-- 忽略标准 Non-standard
+- 忽略标准 非標準 Non-standard
 
-## 状态 Current Version
+## 状态・現在のバージョン・Current Version
 
-`Ver 1.0.3 (a)`
+`Ver 1.0.3 (c)`
 
-## 历史 Changelog
+## 历史・変更ログ・Changelog
+
+- 2023.4.26 Ver 1.0.3 (c): jp doc (fin).
+
+- 2023.4.25 Ver 1.0.3 (b): jp doc (mid).
+
 - 2023.4.24 Ver 1.0.3 (a): the Japanese documentation (ini).
 
 - 2023.4.15 Ver 1.0.2 (h): revised English doc and add reference.
@@ -80,8 +89,9 @@ This package is also available on [CTAN](https://www.ctan.org/pkg/evangelion-jfm
 - 2023.2.7 Ver 1.0.0 (a): initial version.
 
 ## Copyright
-This project is under MIT License.
+
+This project is under MIT License. (Ref [`license`](LICENSE))
 
 Author: RadioNoiseE, 黄京.
 
-Email Addr: j18516785606@icloud.com.
+Email Addr: `j18516785606@icloud.com`.
