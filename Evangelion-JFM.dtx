@@ -78,7 +78,7 @@
     pdfkeywords = {Japanese Font Metric},
     pdfstartview = FitV
 }
-\long\def\feature#1#2#3{{\vskip8pt\vbox{\normalsize\parindent=\zw\hangindent=2\zw\texttt{#1 --> ({\itshape #2\/})}\\\indent#3\par}}}
+\long\def\feature#1#2#3{{\vskip8pt\vbox{\normalsize\parindent=\zw\hangindent=2\zw\rightskip=2\zw\texttt{#1 --> ({\itshape #2\/})}\\\indent#3\par}}}
 \def\meta#1{{\normalfont\rmfamily\itshape$\langle$#1\/$\rangle$}}
 %<sc,ja>\def\空{\quad}
 %<sc,ja>\def\段{\par}
@@ -98,20 +98,22 @@
 
 \begin{abstract}
 %<sc>    本文档将介绍名为Evangelion Japanese Font Metric（下简称为``\textsf{Eva-JFM}''）的JFM文件。其适用于简体中文（以下简称为「简中」）、繁体中文（以下简称为「繁中」）及日文字体的横直排。旨在提供一个充分利用\LuaTeX-ja的\texttt{priority}特性，基于标准\cite{jlreq}的同时，支持一些罕用特性的JFM文件。文档暂使用中文及西文撰写。
-%<ja>    本ドキュメントは、高品質な中国語および日本語のドキュメントを組版するための日本語フォントメトリック「Evangelion Japanese Font Metric（以下「Eva-JFM」とする）」を紹介するものです。このメトリックは、縦書きと横書きの両方のテキストに対して、従来の中国語、簡体字中国語、および日本語のフォントとともに使用できます。これは、\LuaTeX-ja で提供される優先機能を最大限に活用するフォントメトリックを提供し、標準\cite{jlreq}に基づき、一部の高度な（すなわち、めったに使用されない）機能をサポートすることを目的としています。\段
+%<ja>    本ドキュメントは、高品質な中国語および日本語のドキュメントを組版するための日本語フォントメトリック「Evangelion Japanese Font Metric（以下「\textsf{Eva-JFM}」とする）」を紹介するものです。このメトリックは、縦書きと横書きの両方のテキストに対して、従来の中国語、簡体字中国語、および日本語のフォントとともに使用できます。これは、\LuaTeX-ja で提供される優先機能を最大限に活用するフォントメトリックを提供し、標準\cite{jlreq}に基づき、一部の高度な（すなわち、めったに使用されない）機能をサポートすることを目的としています。\段
 %<ja>    本ドキュメントは、完全なものではありません。文法的な（および文脈的な）エラーが多数含まれている可能性があります。
 %<en>    This documentation is going to introduce Evangelion Japanese Font Metric (hereinafter referred to as ``\textsf{Eva-JFM}''), a Japanese Font Metric for typesetting high quality Chinese and Japanese documents. It can be used with Traditional Chinese, Simplified Chinese and Japanese fonts for both vertically and horizontally typesetted texts. It aims to provide a font metric which makes full use of the \texttt{priority} feature (provided by \textsf{\LuaTeX-ja}), bases on the standard~\cite{jlreq}, and supports some advanced (a.k.a., rarely-used) features. The documentation is now written in both Chinese and English.\par
 %<en>    This documentation is far from complete. It may have many grammatical (and contextual) errors.
 \end{abstract}
 
+\tableofcontents
+
 %<sc>\section{背景及略介}
 %<ja>\section{背景情報と簡単な紹介}
 %<en>\section{Background Information and a Rough Introduction}
 %<sc>\TeX{}是高德纳教授于20世纪末开发的强大排版引擎，能够完全满足西文排版的需求。然因时代局限性\footnote{如没有事实上的统一字符编码等。}以及客观原因\footnote{如中日字符集较大，以及书写方式的不同（纵书、横书），标点等。}对中日排版支持十分有限。为达成中日排版需求，在宏扩展（如\textsf{CJK}等）之外出现了引擎扩展。影响力较大的是\pTeX{}系列。\段
-%<ja>{\TeX}は「美しい本の制作」を目的とした強力な組版システムであり、英語ベースのテキストの組版には完全に対応しています。しかし、CJテキストのサポートは限られています\footnote{おそらく普遍的に認められたCJ文字セット標準やエンコーディングシステムが存在しなかったためかもしれません}。{\TeX}でCJテキストを扱うために、マクロ拡張（\textsf{CJK}など）やエンジン拡張が開発されました。最も影響力のあるものの1つが{\pTeX}（シリーズ）です。\段
+%<ja>{\TeX}は「美しい本の制作」を目的とした強力な組版システムであり、英語ベースのテキストの組版には完全に対応しています。しかし、CJテキストのサポートは限られています\footnote{おそらく普遍的に認められたCJ文字セット標準やエンコーディングシステムが存在しなかったためかもしれません。}。{\TeX}でCJテキストを扱うために、マクロ拡張（\textsf{CJK}など）やエンジン拡張が開発されました。最も影響力のあるものの1つが{\pTeX}（シリーズ）です。\段
 %<en>{\TeX} is a powerful typesetting system ``intended for the creation of beautiful books'', it has full support for typesetting English based texts. However, its support for CJ text is limited\footnote{Maybe because there was no universally recognized or accepted CJ character set standard as well as an encoding system.}. For handling CJ texts in {\TeX}, both macro extensions (i.e., \textsf{CJK}) and engine extensions were developed. One of the most influential one is (the) {\pTeX} (series).\par
 %<sc>\pTeX{}系列采用虚拟字体的理念，使用\texttt{TFM/VF}映射TrueType或OpenType字体完成排版。其不支持宏配置字体，也不支持直接生成PDF格式文件。但可以满足日本的传统横纵排版需求（工业标准）。\段
-%<ja>{\pTeX}は仮想フォント方式を使用し、TrueTypeやOpenTypeフォントを\texttt{TFM/VF}ファイルを使ってマッピングします。マクロを介したフォント設定には対応せず、PDF形式の出力にも対応していません。その利点は、伝統的な日本語のタイポグラフィレイアウト要件を扱うための証明済みの能力にあります。
+%<ja>{\pTeX}は仮想フォント方式を使用し、TrueTypeやOpenTypeフォントを\texttt{TFM/VF}ファイルを使ってマッピングします。マクロを介したフォント設定には対応せず、PDF形式の出力にも対応していません。その利点は、伝統的な日本語のタイポグラフィレイアウト要件を扱うための証明済みの能力にあります。\段
 %<en>{\pTeX} uses a virtual font scheme, by mapping TrueType or OpenType fonts using \texttt{TFM/VF} files. It doesn't support font configuration through macros, and has no support for PDF format output. Its advantage is the proven ability for dealing with traditional Japanese typographic layout requirements.\par
 %<sc>\pdfTeX{}则是当时另一个\TeX{}的引擎扩展，支持不经DVI格式直接输出PDF格式的文件。然对Unicode（字符编码）及TrueType、OpenType（「现代」矢量字体格式）的支持繁琐或有限。\段
 %<ja>{\pdfTeX}は、PDFファイルを直接出力できる{\TeX}エンジンの拡張です（その名の通り）。ただし、Unicodeや現代のフォント形式（TrueTypeやOpenTypeベクターフォント形式）に対するサポートは限定的です。\段
@@ -172,7 +174,7 @@
     \ltjenableadjust[priority = true]
 \end{lstlisting}
 %<sc>（注意需要调用支持直书的文档类或使用\texttt{\string\tate}命令）。\LuaTeX-ja的JFM语法为：
-%<ja>\indent 上記は、縦書きの伝統的な中国語フォントを使用して縦書きのテキストを組版する例です。注意が必要ですが、縦書きのテキストをサポートするドキュメントクラスを読み込むか、\texttt{\string\tate}コマンドを使用する必要があります。\LuaTeX-jaのJFM構文は、次のようになります。
+%<ja>\indent 上記は、縦書きの伝統的な中国語フォントを使用して縦書きのテキストを組版する例です。注意が必要ですが、縦書きのテキストをサポートするドキュメントクラスを読み込むか、\texttt{\string\tate}コマンドを使用する必要があります。\LuaTeX-jaのJFM構文は、次のようになります
 %<en>(and be aware that you need to load a document class which supports vertical typesetting or use the \texttt{\string\tate} command. \LuaTeX-ja's JFM syntax is the above
 \begin{lstlisting}
     jfm = §\meta{JFM name}§/{§\meta{JFM features}§}
@@ -184,7 +186,7 @@
     \setmainjfont{§\meta{font name}§}[Language = §\meta{language name}§, §\meta{dir}§ = {JFM = §\meta{JFM name}§/{§\meta{JFM features}§}}]
 \end{lstlisting}
 %<sc>其中，\meta{font name}自然为需要的字体名称。\meta{language name}在使用日文字体时可忽略，而使用简中、繁中字体时为必填\footnote{简中填\texttt{Chinese Simplified}，繁中填\texttt{Chinese Traditional}即可。}，因\LuaTeX-ja会默认将其覆盖为\texttt{Japanese}选项，而这会带来灾难性的后果\footnote{比如错误的标点位置：日文为冒号及分号中置、其余偏靠，简中是全部偏靠，而繁中则是统统中置。}。\meta{dir}选填\texttt{TateFeatures}（直书）或\texttt{YokoFeatures}（横书）。其后的\meta{JFM name}为调用JFM的文件名\footnote{\LuaTeX-ja会依\texttt{jfm-\meta{JFM name}.lua}的格式来查找该文件。}。最后的\meta{JFM features}选项为选择使用的JFM特性，详细请看第\ref{sec:feat}章。\段
-オプションの\meta{font name}は、文書のメインフォントとして指定したいフォントの名前です。日本語のフォントを使用する場合、\meta{language name}は自動的に\LuaTeX-jaによって補完されるため、無視してください。この場合、伝統的な中国語フォントには\texttt{Chinese Traditional}、簡体字中国語フォントには\texttt{Chinese Simplified}を指定する必要があります（これを指定しないと、出力が間違った細部、例えば句読点の形状と方向が変わってしまう可能性があります）。\meta{dir}は、縦書きの場合は\meta{TateFeatures}、横書きの場合は\texttt{YokoFeatures}に設定します。JFMの名前は\meta{JFM features}オプションで指定します\footnote{\LuaTeX-jaは\texttt{jfm-\meta{JFM name}.lua}という方法でJFMファイルを検索します。}。最後に、\meta{JFM features}キーにJFMの特徴を入力してください。これらは、セクション\ref{sec:feat}で説明されています。
+%<ja>オプションの\meta{font name}は、文書のメインフォントとして指定したいフォントの名前です。日本語のフォントを使用する場合、\meta{language name}は自動的に\LuaTeX-jaによって補完されるため、無視してください。この場合、伝統的な中国語フォントには\texttt{Chinese Traditional}、簡体字中国語フォントには\texttt{Chinese Simplified}を指定する必要があります（これを指定しないと、出力が間違った細部、例えば句読点の形状と方向が変わってしまう可能性があります）。\meta{dir}は、縦書きの場合は\texttt{TateFeatures}、横書きの場合は\texttt{YokoFeatures}に設定します。JFMの名前は\meta{JFM features}オプションで指定します\footnote{\LuaTeX-jaは\texttt{jfm-\meta{JFM name}.lua}という方法でJFMファイルを検索します。}。最後に、\meta{JFM features}キーにJFMの特徴を入力してください。これらは、セクション\ref{sec:feat}で説明されています。
 %<en>Option \meta{font name} is the font (that you'd like to specify as the main font for your document)'s name. When using Japanese fonts, simply ignore the \meta{language name} since \LuaTeX-ja will automatically fill it for you. In this case, filling \texttt{Chinese} \texttt{Traditional} for Traditional Chinese fonts and \texttt{Chinese} \texttt{Simplified} for Simplified Chinese fonts is necessary\footnote{Without this, your output may result in wrong details, for instance wrong punctuation shape \& direction.}. \meta{dir} should be \texttt{TateFeatures} when typeset vertically and \texttt{YokoFeatures} for typesetting horizontally accordingly. The JFM's name is specified by the \meta{JFM name} option\footnote{\LuaTeX-ja searchs for a JFM file following the method \texttt{jfm-\meta{JFM name}.lua}.}. Finally, for the \meta{JFM features} key, fill in the JFM features. They are described in section \ref{sec:feat}.\par
 %<sc>对于进阶用户，也推荐用
 %<ja>上級ユーザーの場合、以下を使用することをお勧めします
@@ -299,6 +301,11 @@
 %<en>    This one ignores the standard priority rules for punctuation kerning. While Japanese text layout requirement~\cite{jlreq} suggests that the priority for the period should be higher than the comma (which means the period is easier to stretch), this makes the comma's priority higher than the preiod's. Only works when \textsf{luatexja-adjust}'s priority feature is enabled (set to \texttt{true}).
 }
 %<sc>\footnotetext{考虑逗号、句号在文字系统中占的重量，以及「开明」压缩风格。}
+\feature{plain}{PLAIN punct kerning style}{%
+%<sc>    不进行任何标点压缩。为程式码抄录环境而设（因为默认\texttt{verbatim}环境中也会有标点压缩，有时会很难看）。建议使用该环境提供的钩子调用。
+%<ja>    句読点間隔の調整は実行しません，\texttt{verbatim}環境のために設計された。提供されたフックで使用することをお勧めします。
+%<en>    Disables the performance of spaceing adjustment for any of the puncts. Designed to be used in the verbatim environment. Developers can use the hook provided by that environment to specify this feature.
+}
 
 %<sc>\section{行間標點特性}
 %<ja>\section{行間句読点機能}
@@ -435,10 +442,11 @@
     \bibitem{evang} 庵野秀明. \newblock 新世紀エヴァンゲリオン.
 \end{thebibliography}
 
-%<sc>\section*{程式碼}
-%<en>\section*{Implementation}
-%<sc>以下为\texttt{jfm-eva.lua}文件内容，供参考。%及二次开发等。
-%<en>The above is the implementation of this font metric. Can be used for reference.
-\lstinputlisting{jfm-eva.lua}
+%<ignore>\section*{程式碼}
+%<ignore>\section*{実装}
+%<ignore>\section*{Implementation}
+%<ignore>以下为\texttt{jfm-eva.lua}文件内容，供参考。%及二次开发等。
+%<ignore>The above is the implementation of this font metric. Can be used for reference.
+%<ignore>\lstinputlisting{jfm-eva.lua}
 
 \end{document}

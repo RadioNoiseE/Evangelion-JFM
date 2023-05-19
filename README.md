@@ -12,7 +12,7 @@
 
 より多くの情報は[ドキュメント](Eva-JFM_doc-jp.pdf)を見てください。
 
-それは[CTAN](https://www.ctan.oeg/pkg/evangelion-jfm)にアップロードされました。
+それは[CTAN](https://www.ctan.org/pkg/evangelion-jfm)にアップロードされました。
 
 `Eva-JFM` is a JFM file which aims to support 'linegap puncutations', 'scaled font' and more features under LuaTeX-ja. It can be used with Traditional Chinese, Simplified Chinese and Japanese fonts, supporting vertical typesetting, making full-use of the `priority` feature, and added special support for Traditional Chinese font. It's based on jlreq, and insipered by `min10.tfm`. All its nine features are embeded into one single file `jfm-eva.lua` to simplify the using.
 
@@ -40,11 +40,23 @@ This package is also available on [CTAN](https://www.ctan.org/pkg/evangelion-jfm
 
 - 忽略标准 非標準 Non-standard
 
+- 原始 調整なし Plain
+
 ## 状态・現在のバージョン・Current Version
 
-`Ver 1.0.3 (c)`
+`Ver 1.0.4 (e)`
 
 ## 历史・変更ログ・Changelog
+
+- 2023.5.19 Ver 1.0.4 (e): update japanese documentation and README.
+
+- 2023.5.17 Ver 1.0.4 (c): sync the documentation (en&sc) for the new feature.
+
+- 2023.5.16 Ver 1.0.4 (b): trobble with error handling is fixed (i hope).
+
+- 2023.5.14 Ver 1.0.4 (a): add feature `plain` for verbatim environments.
+
+- 2023.5.5 Ver 1.0.3 (d): revised code and documentation.
 
 - 2023.4.26 Ver 1.0.3 (c): jp doc (fin).
 
