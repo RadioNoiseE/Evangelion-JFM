@@ -47,7 +47,7 @@ if not ((lang_jp and not (lang_tc or lang_sc)) or
               '"jp", "trad" or "smpl"\n' ..
               'is required.\n' ..
               'For now I\'ll use "lang_jp" for japanese by default.')
-    luatexja.jfont.jfm_feature["hwid"] = nil
+    luatexja.jfont.jfm_feature["jp"] = "eva_langfeat_defl"
 end
 
 -- 壓縮比例設定
