@@ -44,9 +44,11 @@ This package is also available on [CTAN](https://www.ctan.org/pkg/evangelion-jfm
 
 ## 状态・現在のバージョン・Current Version
 
-`Ver 1.0.4 (e)`
+`Ver 1.0.4 (f)`
 
 ## 历史・変更ログ・Changelog
+
+- 2023.8.3 Ver 1.0.4 (f): ``optimized'' the behaviour of TC punct at line end.
 
 - 2023.5.19 Ver 1.0.4 (e): update japanese documentation and README.
 
