@@ -42,13 +42,21 @@ This package is also available on [CTAN](https://www.ctan.org/pkg/evangelion-jfm
 
 - 原始 調整なし Plain
 
+- 原始比例宽度 プロポーショナル（調整なし） Proportional (with no aki adjust for punct)
+
+- 比例宽度 プロポーショナル Proportional
+
 ## 状态・現在のバージョン・Current Version
 
-`Ver 1.0.4 (f)`
+`Ver 1.0.5 (b)`
 
 ## 历史・変更ログ・Changelog
 
-- 2023.8.3 Ver 1.0.4 (f): ``optimized'' the behaviour of TC punct at line end.
+- 2023.8.25 Ver 1.0.5 (b): add feature `prop` and `propw` for japanese typesetting.
+
+- 2023.8.23 Ver 1.0.5 (a): add character `U+2E3A` and `U+2E3B` to be compatible with Source Han Fonts' ligatures.
+
+- 2023.8.3 Ver 1.0.4 (f): ''optimized'' the behaviour of TC punct at line end.
 
 - 2023.5.19 Ver 1.0.4 (e): update japanese documentation and README.
 

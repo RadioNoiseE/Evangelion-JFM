@@ -1,11 +1,11 @@
 ---- Evangelion Japanese Font Metric for LuaTeX
----- Current Version: 1.0.4 (e)
+---- Current Version: 1.0.5 (b)
 ---- Dev URL: https://github.com/RadioNoiseE/Evangelion-JFM
 ---- Copyright 2023, RadioNoiseE ©
 
 
 -- 初始化
-local lang_jp, lang_tc, lang_sc, dir_vt, font_extd, punc_lg, punc_hg, std_nil, al_hw, al_fw, as_nil
+local lang_jp, lang_tc, lang_sc, dir_vt, font_extd, punc_lg, punc_hg, std_nil, al_hw, al_fw, as_nil, fw_prop, fw_xprop
 
 if luatexja.jfont.jfm_feature then 
     lang_jp = luatexja.jfont.jfm_feature.jp
@@ -19,6 +19,8 @@ if luatexja.jfont.jfm_feature then
     al_hw = luatexja.jfont.jfm_feature.hwid
     al_fw = luatexja.jfont.jfm_feature.fwid
     as_nil = luatexja.jfont.jfm_feature.plain
+    fw_prop = luatexja.jfont.jfm_feature.prop
+    fw_xprop = luatexja.jfont.jfm_feature.propw
 end
 
 -- 預處理及容錯
@@ -35,9 +37,17 @@ if punc_lg == true and dir_vt == false then
 end
 
 if al_hw == true and al_fw == true then
-    tex.error('JFM feature "hwid" cannot be used with "fwid".')
+    tex.error('JFM feature "hwid" cannot be used with "fwid".\n' ..
+              'For now I\'ll ignore both.')
     luatexja.jfont.jfm_feature["hwid"] = nil
     luatexja.jfont.jfm_feature["fwid"] = nil
+end
+
+if fw_prop == true and fw_xprop == true then
+    tex.error('JFM feature "prop" cannot be used with "propw".\n' ..
+              'For now I\'ll ignore both.')
+    luatexja.jfont.jfm_feature["prop"] = nil
+    luatexja.jfont.jfm_feature["propw"] = nil
 end
 
 if not ((lang_jp and not (lang_tc or lang_sc)) or
@@ -64,9 +74,19 @@ local function logic_anif(f1, f2, r1, r2)
     return rta
 end
 
+local function logic_orif(f1, f2, r1, r2)
+    local rto = (f1 or f2) and r1 or r2
+    return rto
+end
+
 local function logic_if(f1, r1, r2)
     local rti = f1 and r1 or r2
     return rti
+end
+
+local function context_width(regv)
+    local rtw = (fw_prop or fw_xprop) and 'prop' or (regv)
+    return rtw
 end
 
 local function context_height()
@@ -89,7 +109,7 @@ local eva = {
     xkanjiskip = {0.25, 0.125, 0.125},
 
     [0] = { -- 缺省類
-        width = 1,
+        width = context_width(1),
         height = context_height(),
         depth = context_depth(),
         italic = 0,
@@ -108,7 +128,7 @@ local eva = {
 
     [1] = { -- 読点類
         chars = logic_anif(dir_vt, punc_lg, {}, {'、', '，'}),
-        width = 0.5,
+        width = context_width(0.5),
         height = context_height(),
         depth = context_depth(),
         italic = 0,
@@ -160,7 +180,7 @@ local eva = {
 
     [2] = { -- 句點類
         chars = logic_anif(dir_vt, punc_lg, {}, {'．', '。'}),
-        width = 0.5,
+        width = context_width(0.5),
         height = context_height(),
         depth = context_depth(),
         italic = 0,
@@ -212,7 +232,7 @@ local eva = {
 
     [3] = { -- 兩點類
         chars = logic_if(lang_jp, {}, (logic_anif(dir_vt, punc_lg, {}, {'：', '；'}))),
-        width = logic_if(dir_vt, 1, 0.5),
+        width = context_width(logic_if(dir_vt, 1, 0.5)),
         height = context_height(),
         depth = context_depth(),
         italic = 0,
@@ -268,7 +288,7 @@ local eva = {
             'ョ', 'ヮ', 'ヵ', 'ヶ', 'ヽ', 'ヾ', 'ㇰ', 'ㇱ', 'ㇲ', 'ㇳ', 'ㇴ',
             'ㇵ', 'ㇶ', 'ㇷ', 'ㇸ', 'ㇹ', 'ㇺ', 'ㇻ', 'ㇼ', 'ㇽ', 'ㇾ', 'ㇿ'
         },
-        width = 1,
+        width = context_width(1),
         height = context_height(),
         depth = context_depth(),
         italic = 0,
@@ -286,7 +306,7 @@ local eva = {
 
     [5] = { -- 疑問感嘆類
         chars = {'！', '？', '‼︎', '⁉︎', '⁈', '⁇'},
-        width = logic_if(dir_vt, 1, logic_if(lang_sc, 0.5, 1)),
+        width = context_width(logic_if(dir_vt, 1, logic_if(lang_sc, 0.5, 1))),
         height = context_height(),
         depth = context_depth(),
         italic = 0,
@@ -307,7 +327,7 @@ local eva = {
 
     [6] = { -- 分離禁止類
         chars = {'—', '―', '‥', '…', '⋯', '〳', '〴', '〵'},
-        width = 1,
+        width = context_width(1),
         height = context_height(),
         depth = context_depth(),
         italic = 0,
@@ -326,9 +346,45 @@ local eva = {
         }
     },
 
+    [601] = { -- 二連字
+        chars = {'⸺'},
+        width = context_width(2),
+        height = context_height(),
+        depth = context_depth(),
+        italic = 0,
+        left = 0,
+        down = 0,
+        align = 'middle',
+        glue = {
+            [1] = logic_if(lang_tc, {0.25, 0, 0,125, ratio = 1}, {}),
+            [2] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1}, {}),
+            [3] = logic_if(dir_vt, {priority = {0, -1}}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1, priority = {0, -1}}, {priority = {0, -1}})),
+            [7] = {0.5, 0, 0.25, ratio = 1, priority = {-1, -2}},
+            [9] = {0.25, 0, 0.125, ratio = 1, priority = {0, -1}}
+        }
+    },
+
+    [602] = { -- 三連字
+        chars = {'⸻'},
+        width = context_width(3),
+        height = context_height(),
+        depth = context_depth(),
+        italic = 0,
+        left = 0,
+        down = 0,
+        align = 'middle',
+        glue = {
+            [1] = logic_if(lang_tc, {0.25, 0, 0,125, ratio = 1}, {}),
+            [2] = logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1}, {}),
+            [3] = logic_if(dir_vt, {priority = {0, -1}}, logic_if(lang_tc, {0.25, 0, 0.125, ratio = 1, priority = {0, -1}}, {priority = {0, -1}})),
+            [7] = {0.5, 0, 0.25, ratio = 1, priority = {-1, -2}},
+            [9] = {0.25, 0, 0.125, ratio = 1, priority = {0, -1}}
+        }
+    },
+
     [7] = { -- 開括號類
         chars = {'（', '〔', '［', '｛', '〈', '《', '「', '『', '【', '｟', '〘', '〖', '〝', '‘', '“'},
-        width = 0.5,
+        width = context_width(0.5),
         height = context_height(),
         depth = context_depth(),
         italic = 0,
@@ -346,7 +402,7 @@ local eva = {
 
     [8] = { -- 閉括號類
         chars = {'）', '〕', '］', '｝', '〉', '》', '」', '』', '】', '｠', '〙', '〗', '〟', '’', '”'},
-        width = 0.5, 
+        width = context_width(0.5), 
         height = context_height(),
         depth = context_depth(),
         italic = 0,
@@ -369,7 +425,7 @@ local eva = {
 
     [9] = { -- 中點類
         chars = logic_if(lang_jp, {'・', '：', '；'}, {'・', '·'}),
-        width = 0.5,
+        width = context_width(0.5),
         height = context_height(),
         depth = context_depth(),
         italic = 0,
@@ -409,7 +465,7 @@ local eva = {
             [7] = {0, 0, 0}
         }
     }
-}    
+}
 
 if al_hw == true or al_fw == true then
     eva[10].chars = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
@@ -428,8 +484,14 @@ if al_hw == true and al_fw == false then
     eva[10].width = 0.5
 end
 
-if al_fw == false and al_fw == true then
+if al_fw == false and al_hw == true then
     eva[10].width = 1
+end
+
+if fw_prop == true and fw_xprop == false then
+    for _, catnum in ipairs({0, 1, 101, 102, 2, 201, 202, 3, 301, 302, 4, 5, 6, 7, 8, 9, 10}) do
+      eva[catnum].glue = {}
+    end
 end
 
 if sa_nil == true then
