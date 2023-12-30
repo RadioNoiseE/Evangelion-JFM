@@ -402,7 +402,7 @@ local eva = {
 
     [8] = { -- 閉括號類
         chars = {'）', '〕', '］', '｝', '〉', '》', '」', '』', '】', '｠', '〙', '〗', '〟', '’', '”'},
-        width = context_width(0.5), 
+        width = context_width(0.5),
         height = context_height(),
         depth = context_depth(),
         italic = 0,
