@@ -1,5 +1,5 @@
 ---- Evangelion Japanese Font Metric for LuaTeX
----- Current Version: 1.0.5 (b)
+---- Current Version: 1.0.5 (c)
 ---- Dev URL: https://github.com/RadioNoiseE/Evangelion-JFM
 ---- Copyright 2023, RadioNoiseE ©
 
