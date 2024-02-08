@@ -7,7 +7,7 @@
 -- 初始化
 local lang_jp, lang_tc, lang_sc, dir_vt, font_extd, punc_lg, punc_hg, std_nil, al_hw, al_fw, as_nil, fw_prop, fw_xprop
 
-if luatexja.jfont.jfm_feature then 
+if luatexja.jfont.jfm_feature then
     lang_jp = luatexja.jfont.jfm_feature.jp
     lang_tc = luatexja.jfont.jfm_feature.trad
     lang_sc = luatexja.jfont.jfm_feature.smpl
@@ -61,8 +61,9 @@ if not ((lang_jp and not (lang_tc or lang_sc)) or
 end
 
 -- 壓縮比例設定
-if font_extd == true then
-    local extd_ratio = (type(font_extd) == 'string') and tonumber(font_extd) or 1.25
+local extd_ratio = (type(font_extd) == 'string') and tonumber(font_extd) or 1.25
+if font_extd == false then
+    extd_ratio = nil
 end
 
 -- 行間標點字間距補足
