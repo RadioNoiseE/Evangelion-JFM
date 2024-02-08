@@ -48,9 +48,11 @@ This package is also available on [CTAN](https://www.ctan.org/pkg/evangelion-jfm
 
 ## 状态・現在のバージョン・Current Version
 
-`Ver 1.0.5 (b)`
+`Ver 1.0.5 (c)`
 
 ## 历史・変更ログ・Changelog
+
+- 2024.2.8 Ver 1.0.5 (c): fix the variable scope for `extd_ratio`, this should fix the nil error.
 
 - 2023.8.25 Ver 1.0.5 (b): add feature `prop` and `propw` for japanese typesetting.
 
