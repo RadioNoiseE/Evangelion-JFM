@@ -1,4 +1,4 @@
-## RadioNoiseE, 2023.
+## RadioNoiseE, 2023, 2024.
 ## Evangelion Japanese Font Metric
 
 # Init
