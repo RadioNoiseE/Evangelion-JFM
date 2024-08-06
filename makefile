@@ -1,15 +1,28 @@
-doc-manu = Eva-JFM_doc-sc.tex Eva-JFM_doc-en.tex Eva-JFM_doc-jp.tex
+texe:=luatex
+texc:=lualatex
+docs:=Eva-JFM_doc-sc.tex Eva-JFM_doc-en.tex Eva-JFM_doc-jp.tex
 
-.PHONY : release
-release : Evangelion-JFM.dtx jfm-eva.lua
-	luatex Evangelion-JFM.dtx
-	lualatex Eva-JFM_doc-sc.tex
-	lualatex Eva-JFM_doc-sc.tex
-	latexmk -c Eva-JFM_doc-sc.tex
-	lualatex Eva-JFM_doc-jp.tex
-	lualatex Eva-JFM_doc-jp.tex
-	latexmk -c Eva-JFM_doc-jp.tex
-	lualatex Eva-JFM_doc-en.tex
-	lualatex Eva-JFM_doc-en.tex
-	latexmk -c Eva-JFM_doc-en.tex
-	rm $(doc-manu)
+
+man: Evangelion-JFM.dtx
+	$(texe) Evangelion-JFM.dtx
+
+zhcn: man
+	$(texc) Eva-JFM_doc-sc.tex
+	$(texc) Eva-JFM_doc-sc.tex
+
+jajp: man
+	$(texc) Eva-JFM_doc-jp.tex
+	$(texc) Eva-JFM_doc-jp.tex
+
+ennl: man
+	$(texc) Eva-JFM_doc-en.tex
+	$(texc) Eva-JFM_doc-en.tex
+
+doc: zhcn jajp ennl
+
+clean:
+	latexmk -c
+	rm -f $(docs)
+
+.DEFAULT_GOAL=doc
+.PHONY: clean
