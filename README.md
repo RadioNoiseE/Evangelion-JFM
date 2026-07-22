@@ -48,9 +48,11 @@ This package is also available on [CTAN](https://www.ctan.org/pkg/evangelion-jfm
 
 ## 状态・現在のバージョン・Current Version
 
-`Ver 1.0.5 (c)`
+`Ver 1.0.5 (d)`
 
 ## 历史・変更ログ・Changelog
+
+- 2026.7.22 Ver 1.0.5 (d): hang also category 7 at parbdd/boxbdd when `hgp`.
 
 - 2024.2.8 Ver 1.0.5 (c): fix the variable scope for `extd_ratio`, this should fix the nil error.
 

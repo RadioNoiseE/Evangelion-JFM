@@ -1,7 +1,7 @@
 ---- Evangelion Japanese Font Metric for LuaTeX
----- Current Version: 1.0.5 (c)
+---- Current Version: 1.0.5 (d)
 ---- Dev URL: https://github.com/RadioNoiseE/Evangelion-JFM
----- © 2023-2024, RadioNoiseE
+---- © 2023-2024, 2026 RadioNoiseE
 
 
 -- 初始化
@@ -463,7 +463,7 @@ local eva = {
     [11] = { -- 行頭
         chars = {'parbdd', 'boxbdd'},
         glue = {
-            [7] = {0, 0, 0}
+            [7] = {logic_if(punc_hg, -0.5, 0), 0, 0}
         }
     }
 }
